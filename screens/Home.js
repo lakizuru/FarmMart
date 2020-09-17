@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Home({ navigation }) {
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     flexDirection: "column",
+    paddingTop: Platform.OS === "android" ? 35 : 0,
   },
   post: {
     flex: 0.1,

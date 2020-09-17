@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default function Login({ lang, navigation }) {
+export default function Login({ route, navigation }) {
   const [phone, setPhone] = useState({
     phone: "123",
   });
@@ -38,11 +38,11 @@ export default function Login({ lang, navigation }) {
     },
   };
 
-  const language = lang;
+  const { lang } = route.params;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>{lang}!</Text>
+      <Text style={styles.logo}> {JSON.stringify(lang)}!</Text>
 
       <View style={styles.inputView}>
         <TextInput
@@ -78,7 +78,7 @@ export default function Login({ lang, navigation }) {
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
         <Text style={styles.loginText}>Signup</Text>
       </TouchableOpacity>
 
