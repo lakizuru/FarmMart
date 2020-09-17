@@ -9,6 +9,7 @@ export default function Home({ navigation }) {
       <Text style={{ fontSize: 36 }}>
         THIS SCREEN IS STILL UNDER DEVELPMENT
       </Text>
+
       <View style={styles.post}>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <Text style={{ color: "white", fontSize: 24 }}>Settings</Text>
