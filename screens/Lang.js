@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { sin, tam, eng } from "../lang";
 
 export default function Lang({ navigation }) {
   return (
@@ -59,20 +60,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const sin = {
-  login: {
-    Greet: "ආයුබෝවන්!",
-  },
-};
+// const sin = {
+//   login: {
+//     Greet: "ආයුබෝවන්!",
+//   },
+// };
 
-const tam = {
-  login: {
-    Greet: "வணக்கம்!",
-  },
-};
+// const tam = {
+//   login: {
+//     Greet: "வணக்கம்!",
+//   },
+// };
 
-const eng = {
-  login: {
-    Greet: "Welcome!",
-  },
-};
+// const eng = {
+//   login: {
+//     Greet: "Welcome!",
+//   },
+// };
