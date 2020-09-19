@@ -10,7 +10,9 @@ import {
 } from "react-native";
 
 export default function Home({ route, navigation }) {
-  const { cat } = route.params; //Category
+  //const { cat } = route.params; //Category
+
+  const { lang } = route.params;
 
   return (
     <View style={styles.container}>
@@ -20,13 +22,17 @@ export default function Home({ route, navigation }) {
 
       <View style={styles.bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-          <Text style={{ color: "white", fontSize: 24 }}>Settings</Text>
+          <Text style={{ color: "white", fontSize: 24 }}>
+            {lang.home.settings}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("New Post")}>
           <Text style={{ color: "white", fontSize: 24 }}>New Post</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-          <Text style={{ color: "white", fontSize: 24 }}>Search</Text>
+          <Text style={{ color: "white", fontSize: 24 }}>
+            {lang.home.search}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

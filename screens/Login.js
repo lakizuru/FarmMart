@@ -24,12 +24,12 @@ export default function Login({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}> {lang.login.Greet}</Text>
+      <Text style={styles.logo}> {lang.login.greet}</Text>
 
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
-          placeholder="Phone Number..."
+          placeholder={lang.login.phone}
           placeholderTextColor="#003f5c"
           onChangeText={(text) => setPhone(text)}
           //enablesReturnKeyAutomatically="true"
@@ -40,7 +40,7 @@ export default function Login({ route, navigation }) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
-          placeholder="Password"
+          placeholder={lang.login.password}
           placeholderTextColor="#003f5c"
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
@@ -52,9 +52,7 @@ export default function Login({ route, navigation }) {
       <TouchableOpacity
         style={styles.loginBtn}
         onPress={() => {
-          navigation.navigate("Home", {
-            cat: "harvest",
-          });
+          navigation.navigate("Home", { lang: lang });
         }}
       >
         <Text style={styles.loginText}>LOGIN</Text>

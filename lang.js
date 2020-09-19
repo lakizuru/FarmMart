@@ -1,18 +1,36 @@
 const sin = {
   login: {
-    Greet: "ආයුබෝවන්!",
+    greet: "ආයුබෝවන්!",
+    phone: "දුරකතන අංකය",
+    password: "මුරපදය",
+  },
+  home: {
+    settings: "සැකසුම්",
+    search: "සෙවීම",
   },
 };
 
 const tam = {
   login: {
-    Greet: "வணக்கம்!",
+    greet: "வணக்கம்!",
+    phone: "தொலைபேசி எண்",
+    password: "கடவுச்சொல்",
+  },
+  home: {
+    settings: "அமைப்புகள்",
+    search: "தேடல்",
   },
 };
 
 const eng = {
   login: {
-    Greet: "Welcome!",
+    greet: "Welcome!",
+    phone: "Phone Number",
+    password: "Password",
+  },
+  home: {
+    settings: "Settings",
+    search: "Search",
   },
 };
 
