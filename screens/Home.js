@@ -12,7 +12,7 @@ import {
 export default function Home({ route, navigation }) {
   //const { cat } = route.params; //Category
 
-  const { lang } = route.params;
+  const { lang } = route.params; // gets the preffered language to the screen
 
   return (
     <View style={styles.container}>

@@ -58,7 +58,7 @@ export default function Login({ route, navigation }) {
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Account Recovery")}>
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
 

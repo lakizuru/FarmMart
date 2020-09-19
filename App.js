@@ -13,6 +13,8 @@ import SignUp from "./screens/SignUp";
 import Search from "./screens/Search";
 import NewPost from "./screens/NewPost";
 import Settings from "./screens/Settings";
+import Recovery from "./screens/Recovery";
+import DetailedView from "./screens/DetailedView";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -31,6 +33,14 @@ export default function App() {
         <Stack.Screen name="Search" component={Search}></Stack.Screen>
         <Stack.Screen name="New Post" component={NewPost}></Stack.Screen>
         <Stack.Screen name="Settings" component={Settings}></Stack.Screen>
+        <Stack.Screen
+          name="Account Recovery"
+          component={Recovery}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Detailed View"
+          component={DetailedView}
+        ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
