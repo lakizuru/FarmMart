@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import "react-native-gesture-handler";
+
 import {
   StyleSheet,
   Text,
@@ -17,32 +18,13 @@ export default function Login({ route, navigation }) {
     password: "abc",
   });
 
-  const Login = () => {
-    if (phone == "123" && password == "abc") {
-      //navigation.navigate("Home");
-      alert("pass");
-    } else {
-      alert("fuck");
-    }
-  };
-
-  const words = {
-    sin: {
-      Welcome: "ආයුබෝවන්",
-    },
-    tam: {
-      Welcome: "வணக்கம்",
-    },
-    eng: {
-      Welcome: "Welcome",
-    },
-  };
+  const Login = () => {};
 
   const { lang } = route.params;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}> {JSON.stringify(lang)}!</Text>
+      <Text style={styles.logo}> {lang.login.Greet}</Text>
 
       <View style={styles.inputView}>
         <TextInput
@@ -69,7 +51,11 @@ export default function Login({ route, navigation }) {
 
       <TouchableOpacity
         style={styles.loginBtn}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => {
+          navigation.navigate("Home", {
+            cat: "harvest",
+          });
+        }}
       >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
@@ -129,3 +115,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+const sin = {
+  login: {
+    Greet: "ආයුබෝවන්!",
+  },
+};
+
+const tam = {
+  login: {
+    Greet: "வணக்கம்!",
+  },
+};
+
+const eng = {
+  login: {
+    Greet: "Welcome!",
+  },
+};

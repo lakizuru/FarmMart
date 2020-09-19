@@ -8,21 +8,21 @@ export default function Lang({ navigation }) {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Login", { lang: "sin" })}
+          onPress={() => navigation.navigate("Login", { lang: sin })}
         >
           <Text style={styles.btnText}>සිංහල</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Login", { lang: "tam" })}
+          onPress={() => navigation.navigate("Login", { lang: tam })}
         >
           <Text style={styles.btnText}>தமிழ்</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Login", { lang: "eng" })}
+          onPress={() => navigation.navigate("Login", { lang: eng })}
         >
           <Text style={styles.btnText}>English</Text>
         </TouchableOpacity>
@@ -58,3 +58,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#003f5c",
   },
 });
+
+const sin = {
+  login: {
+    Greet: "ආයුබෝවන්!",
+  },
+};
+
+const tam = {
+  login: {
+    Greet: "வணக்கம்!",
+  },
+};
+
+const eng = {
+  login: {
+    Greet: "Welcome!",
+  },
+};

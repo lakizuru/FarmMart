@@ -1,16 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, Platform } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import "react-native-gesture-handler";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 
-export default function Home({ navigation }) {
+export default function Home({ route, navigation }) {
+  const { cat } = route.params; //Category
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 36 }}>
         THIS SCREEN IS STILL UNDER DEVELPMENT
       </Text>
 
-      <View style={styles.post}>
+      <View style={styles.bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <Text style={{ color: "white", fontSize: 24 }}>Settings</Text>
         </TouchableOpacity>
@@ -32,7 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingTop: Platform.OS === "android" ? 35 : 0,
   },
-  post: {
+  bar: {
     flex: 0.1,
     height: "10%",
     alignItems: "center",
