@@ -59,21 +59,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#003f5c",
   },
 });
-
-// const sin = {
-//   login: {
-//     Greet: "ආයුබෝවන්!",
-//   },
-// };
-
-// const tam = {
-//   login: {
-//     Greet: "வணக்கம்!",
-//   },
-// };
-
-// const eng = {
-//   login: {
-//     Greet: "Welcome!",
-//   },
-// };

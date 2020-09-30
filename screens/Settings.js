@@ -1,67 +1,48 @@
 import React from "react";
 import {
-  Text,
   View,
+  Text,
   Button,
   TextInput,
-  StyleSheet,
   Platform,
+  StyleSheet,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-export default function Search({ Navigation }) {
+export default class SignUp extends React.Component {
   state = {
     username: "",
     password: "",
-    email: "",
+    Division: "",
     phone_number: "",
+    ConformPassword: "",
   };
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val });
-  };
-  signUp = async () => {
-    const { username, password, email, phone_number } = this.state;
+  /*onChangeText = (key, val) => {
+    this.setState({ [key]: val })
+  }*/
+  /*signUp = async () => {
+    const { username, password, email, phone_number } = this.state
     try {
       // here place your signup logic
-      console.log("user successfully signed up!: ", success);
+      console.log('user successfully signed up!: ', success)
     } catch (err) {
-      console.log("error signing up: ", err);
+      console.log('error signing up: ', err)
     }
+  }*/
 
+  render() {
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: "row" }}>
-          <Text
-            style={{
-              fontSize: 35,
-              fontWeight: "bold",
-              paddingTop: 20,
-              paddingLeft: 20,
-            }}
-          >
-            Settings
-          </Text>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              padding: 20,
-              paddingTop: 30,
-              marginLeft: 130,
-            }}
-          >
-            <Button title="Logout" onPress={this.signUp} />
-          </View>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 20,
+          }}
+        >
+          <Text style={{ fontSize: 35, fontWeight: "bold" }}>Create</Text>
+          <Text style={{ fontSize: 35, fontWeight: "bold" }}>Account</Text>
         </View>
-        <Text style={styles.tet}>Name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Username"
-          autoCapitalize="none"
-          placeholderTextColor="white"
-          onChangeText={(val) => this.onChangeText("username", val)}
-        />
         <Text style={styles.tet}>Phone Number</Text>
         <TextInput
           style={styles.input}
@@ -69,6 +50,14 @@ export default function Search({ Navigation }) {
           autoCapitalize="none"
           placeholderTextColor="white"
           onChangeText={(val) => this.onChangeText("phone_number", val)}
+        />
+        <Text style={styles.tet}>Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          autoCapitalize="none"
+          placeholderTextColor="white"
+          onChangeText={(val) => this.onChangeText("username", val)}
         />
         <Text style={styles.tet}>District</Text>
         <DropDownPicker
@@ -104,7 +93,6 @@ export default function Search({ Navigation }) {
           placeholderTextColor="white"
           onChangeText={(val) => this.onChangeText("Division", val)}
         />
-
         <Text style={styles.tet}>Password</Text>
         <TextInput
           style={styles.input}
@@ -123,6 +111,7 @@ export default function Search({ Navigation }) {
           placeholderTextColor="white"
           onChangeText={(val) => this.onChangeText("Conformpassword", val)}
         />
+
         <View
           style={{
             justifyContent: "center",
@@ -130,16 +119,16 @@ export default function Search({ Navigation }) {
             padding: 40,
           }}
         >
-          <Button title="Update" onPress={this.update} />
+          <Button title="Sign Up" onPress={this.signUp} />
         </View>
       </View>
     );
-  };
+  }
 }
 
 const styles = StyleSheet.create({
   input: {
-    width: 370,
+    width: 380,
     height: 55,
     backgroundColor: "#42A5F5",
     margin: 10,
@@ -151,7 +140,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingLeft: 13,
     paddingTop: Platform.OS === "android" ? 35 : 0,
   },
   tet: {
