@@ -8,6 +8,7 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Home({ route, navigation }) {
   //const { cat } = route.params; //Category
@@ -16,9 +17,9 @@ export default function Home({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 36 }}>
-        THIS SCREEN IS STILL UNDER DEVELPMENT
-      </Text>
+      <Text style={{ fontSize: 36 }}>HOME</Text>
+
+      <ScrollView>//content comes here</ScrollView>
 
       <View style={styles.bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>

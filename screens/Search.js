@@ -1,14 +1,25 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, Platform } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 
 export default function Search({ Navigation }) {
   return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 36 }}>
-        THIS SCREEN IS STILL UNDER DEVELPMENT
-      </Text>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "android" ? "padding" : "height"}
+      enabled
+    >
+      <View style={styles.container}>
+        <Text style={{ fontSize: 36 }}>SEARCH</Text>
+      </View>
+      <ScrollView></ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
