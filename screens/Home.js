@@ -19,7 +19,7 @@ export default function Home({ route, navigation }) {
     <View style={styles.container}>
       <Text style={{ fontSize: 36 }}>HOME</Text>
 
-      <ScrollView>//content comes here</ScrollView>
+      <ScrollView></ScrollView>
 
       <View style={styles.bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>

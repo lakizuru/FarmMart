@@ -4,6 +4,7 @@ import { StyleSheet, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
+import firebase from "firebase";
 
 //importing screens
 import Lang from "./screens/Lang";
@@ -18,6 +19,11 @@ import DetailedView from "./screens/DetailedView";
 
 export default function App() {
   const Stack = createStackNavigator();
+
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp({});
+    console.log("if ran");
+  }
 
   return (
     <NavigationContainer>

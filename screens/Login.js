@@ -1,6 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import "react-native-gesture-handler";
+import auth from "@react-native-firebase/auth";
+
+import { GoogleSignin } from "@react-native-community/google-signin";
 
 import {
   StyleSheet,
@@ -8,7 +11,32 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
+
+// GoogleSignin.configure({
+//   webClientId: '253159788629-473o4b6oc3popct4f2b31tkkpf82kr64.apps.googleusercontent.com',
+// });
+
+// async function onGoogleButtonPress() {
+//   // Get the users ID token
+//   const { idToken } = await GoogleSignin.signIn();
+
+//   // Create a Google credential with the token
+//   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+//   // Sign-in the user with the credential
+//   return auth().signInWithCredential(googleCredential);
+// }
+
+// function GoogleSignIn() {
+//   return (
+//     <Button
+//       title="Google Sign-In"
+//       onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
+//     />
+//   );
+// }
 
 export default function Login({ route, navigation }) {
   const [phone, setPhone] = useState({
@@ -51,9 +79,8 @@ export default function Login({ route, navigation }) {
 
       <TouchableOpacity
         style={styles.loginBtn}
-        onPress={() => {
-          navigation.navigate("Home", { lang: lang });
-        }}
+        //onPress={() => GoogleSignIn()}
+        onPress={() => navigation.navigate("Home", { lang: lang })}
       >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
@@ -113,21 +140,3 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-const sin = {
-  login: {
-    Greet: "ආයුබෝවන්!",
-  },
-};
-
-const tam = {
-  login: {
-    Greet: "வணக்கம்!",
-  },
-};
-
-const eng = {
-  login: {
-    Greet: "Welcome!",
-  },
-};
