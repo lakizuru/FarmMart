@@ -101,7 +101,12 @@ export default class SignUp extends React.Component {
               padding: 40,
             }}
           >
-            <Button title="Search" onPress={this.SignUp} />
+            <Button
+              title="Search"
+              onPress={() =>
+                navigation.navigate("Home", { lang: lang, keyword: keyword })
+              }
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

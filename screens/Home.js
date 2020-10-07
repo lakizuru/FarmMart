@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -9,17 +8,60 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import firebase from "../firebaseDb";
 
 export default function Home({ route, navigation }) {
   //const { cat } = route.params; //Category
 
-  const { lang } = route.params; // gets the preffered language to the screen
+  const { lang, user } = route.params; // gets the preffered language to the screen
+
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const postSet = firebase.firestore().collection("Posts");
+    return postSet.onSnapshot((querySnapshot) => {
+      const list = [];
+      querySnapshot.forEach((doc) => {
+        const {
+          title,
+          category,
+          description,
+          price,
+          unit,
+          quantity,
+          area,
+          district,
+        } = doc.data();
+        list.push({
+          id: doc.id,
+          category,
+          description,
+          price,
+          unit,
+          quantity,
+          area,
+          district,
+        });
+      });
+    });
+  }, []);
+
+  if (loading) {
+    return null; // or a spinner
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 36 }}>HOME</Text>
-
-      <ScrollView></ScrollView>
+      <Text style={{ fontSize: 36 }}>{user}</Text>
+      <ScrollView>
+        <FlatList
+          style={{ flex: 1 }}
+          data={todos}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Todo {...item} />}
+        />
+      </ScrollView>
 
       <View style={styles.bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>

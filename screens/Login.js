@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import "react-native-gesture-handler";
 import firebase from "../firebaseDb";
-import firestore from "@react-native-firebase/firestore";
 
 import {
   StyleSheet,
@@ -11,9 +10,10 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+  Alert,
 } from "react-native";
 
-function Push_data(pPhone, pPassword) {
+function signUp(pPhone, pPassword) {
   // const dbRef = firebase.firestore().collection("users");
   // dbRef
   //   .add({
@@ -26,7 +26,7 @@ function Push_data(pPhone, pPassword) {
 
   firebase
     .firestore()
-    .collection("users")
+    .collection("Users")
     .doc(pPhone)
     .set({
       password: pPassword,
@@ -36,15 +36,34 @@ function Push_data(pPhone, pPassword) {
     });
 }
 
+function logIn(pPhone, pPassword, navigation, lang) {
+  const user = firebase.firestore().collection("Users").doc(pPhone);
+
+  user
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        navigation.navigate("Home", {
+          lang: lang,
+          user: toString(doc.data().password),
+        });
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    })
+    .catch(function (error) {
+      console.log("Error getting document:", error);
+    });
+}
+
 export default function Login({ route, navigation }) {
   const [phone, setPhone] = useState({
-    phone: "123",
+    phone: "0715889333",
   });
   const [password, setPassword] = useState({
-    password: "abc",
+    password: "test",
   });
-
-  const Login = () => {};
 
   const { lang } = route.params;
 
@@ -54,12 +73,13 @@ export default function Login({ route, navigation }) {
 
       <View style={styles.inputView}>
         <TextInput
+          maxLength="10"
           style={styles.inputText}
           placeholder={lang.login.phone}
           placeholderTextColor="#003f5c"
           onChangeText={(text) => setPhone(text)}
           //enablesReturnKeyAutomatically="true"
-          //maxLength="10"
+          keyboardType="phone-pad"
         />
       </View>
 
@@ -72,14 +92,15 @@ export default function Login({ route, navigation }) {
           secureTextEntry
           //enablesReturnKeyAutomatically="true"
           textContentType="password"
+          maxLength="16"
         />
       </View>
 
       <TouchableOpacity
         style={styles.loginBtn}
         //onPress={() => Push_data(phone, password)}
-
-        onPress={() => navigation.navigate("Home", { lang: lang })}
+        onPress={() => logIn(phone, password, navigation, lang)}
+        //onPress={() => navigation.navigate("Home", { lang: lang })}
       >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>

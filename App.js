@@ -1,10 +1,8 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
-import firebase from "firebase";
 
 //importing screens
 import Lang from "./screens/Lang";
