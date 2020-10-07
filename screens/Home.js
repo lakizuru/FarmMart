@@ -7,8 +7,9 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, FlatList } from "react-native-gesture-handler";
 import firebase from "../firebaseDb";
+import Posts from "../Post";
 
 export default function Home({ route, navigation }) {
   //const { cat } = route.params; //Category
@@ -47,22 +48,22 @@ export default function Home({ route, navigation }) {
     });
   }, []);
 
-  if (loading) {
-    return null; // or a spinner
-  }
+  // if (loading) {
+  //   return null; // or a spinner
+  // }
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 36 }}>{user}</Text>
-      <ScrollView>
-        <FlatList
-          style={{ flex: 1 }}
-          data={todos}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Todo {...item} />}
-        />
-      </ScrollView>
 
+      <ScrollView>
+        {/* <FlatList
+          style={{ flex: 1 }}
+          data={posts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Post {...item} />}
+        /> */}
+      </ScrollView>
       <View style={styles.bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
           <Text style={{ color: "white", fontSize: 24 }}>

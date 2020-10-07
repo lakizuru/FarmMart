@@ -73,7 +73,7 @@ export default function Login({ route, navigation }) {
 
       <View style={styles.inputView}>
         <TextInput
-          maxLength="10"
+          //maxLength="10"
           style={styles.inputText}
           placeholder={lang.login.phone}
           placeholderTextColor="#003f5c"
@@ -92,7 +92,7 @@ export default function Login({ route, navigation }) {
           secureTextEntry
           //enablesReturnKeyAutomatically="true"
           textContentType="password"
-          maxLength="16"
+          //maxLength="16"
         />
       </View>
 
