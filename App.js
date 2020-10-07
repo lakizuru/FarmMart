@@ -20,11 +20,6 @@ import DetailedView from "./screens/DetailedView";
 export default function App() {
   const Stack = createStackNavigator();
 
-  if (firebase.apps.length === 0) {
-    firebase.initializeApp({});
-    console.log("if ran");
-  }
-
   return (
     <NavigationContainer>
       <Stack.Navigator

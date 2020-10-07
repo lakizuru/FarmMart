@@ -1,9 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import "react-native-gesture-handler";
-import auth from "@react-native-firebase/auth";
-
-import { GoogleSignin } from "@react-native-community/google-signin";
+import firebase from "../firebaseDb";
 
 import {
   StyleSheet,
@@ -37,6 +35,18 @@ import {
 //     />
 //   );
 // }
+
+function Push_data(ffname, lname) {
+  const dbRef = firebase.firestore().collection("users");
+  dbRef
+    .add({
+      fname: ffname,
+      surename: lname,
+    })
+    .then((res) => {
+      console.log(res.id);
+    });
+}
 
 export default function Login({ route, navigation }) {
   const [phone, setPhone] = useState({
@@ -79,10 +89,10 @@ export default function Login({ route, navigation }) {
 
       <TouchableOpacity
         style={styles.loginBtn}
-        //onPress={() => GoogleSignIn()}
-        onPress={() => navigation.navigate("Home", { lang: lang })}
+        onPress={() => Push_data("Lakisuru", "Semasinghe")}
+        // onPress={() => navigation.navigate("Home", { lang: lang })}
       >
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text style={styles.loginText}>ADD DATA</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Account Recovery")}>
