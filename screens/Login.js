@@ -9,7 +9,10 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
+
+import logoImg from "../assets/icon.png";
 
 function logIn(pPhone, pPassword, navigation, lang) {
   const user = firebase.firestore().collection("Users").doc(pPhone);
@@ -33,12 +36,8 @@ function logIn(pPhone, pPassword, navigation, lang) {
 }
 
 export default function Login({ route, navigation }) {
-  const [phone, setPhone] = useState({
-    phone: "0",
-  });
-  const [password, setPassword] = useState({
-    password: "test",
-  });
+  const [phone, setPhone] = useState();
+  const [password, setPassword] = useState();
 
   const { lang } = route.params;
 
@@ -70,7 +69,8 @@ export default function Login({ route, navigation }) {
           <Text style={styles.btnText}>E</Text>
         </TouchableOpacity>
       </View> */}
-      <Text style={styles.logo}> {lang.login.greet}</Text>
+      <Text style={styles.greet}> {lang.login.greet}</Text>
+      <Image source={logoImg} style={styles.image} />
 
       <View style={styles.inputView}>
         <TextInput
@@ -83,7 +83,6 @@ export default function Login({ route, navigation }) {
           keyboardType="phone-pad"
         />
       </View>
-
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -96,7 +95,6 @@ export default function Login({ route, navigation }) {
           //maxLength="16"
         />
       </View>
-
       <TouchableOpacity
         style={styles.loginBtn}
         //onPress={() => Push_data(phone, password)}
@@ -107,15 +105,16 @@ export default function Login({ route, navigation }) {
           {lang.login.loginBtn}
         </Text>
       </TouchableOpacity>
-
       <TouchableOpacity onPress={() => navigation.navigate("Account Recovery")}>
-        <Text style={{ fontSize: 20 }}>{lang.login.forgotPW}</Text>
+        <Text style={{ fontSize: 20, color: "white" }}>
+          {lang.login.forgotPW}
+        </Text>
       </TouchableOpacity>
-
       <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
-        <Text style={{ fontSize: 20 }}>{lang.login.signUpBtn}</Text>
+        <Text style={{ fontSize: 20, color: "white" }}>
+          {lang.login.signUpBtn}
+        </Text>
       </TouchableOpacity>
-
       <StatusBar style="auto" />
     </View>
   );
@@ -128,7 +127,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
   },
-  logo: {
+  image: {
+    width: 150,
+    height: 150,
+  },
+  greet: {
     fontWeight: "bold",
     fontSize: 50,
     color: "#fb5b5a",
@@ -161,6 +164,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     marginBottom: 10,
+  },
+  logo: {
+    width: 80,
+    height: 80,
   },
   langBar: {
     flex: 0.2,

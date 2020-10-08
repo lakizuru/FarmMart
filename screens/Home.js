@@ -76,22 +76,22 @@ export default function Home({ route, navigation }) {
         <TouchableOpacity
           onPress={() => navigation.navigate("Settings", { lang: lang })}
         >
-          <Text style={{ color: "white", fontSize: 24 }}>⚙️</Text>
+          <Text style={styles.barText}>⚙️</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("My Posts", { lang: lang })}
         >
-          <Text style={{ color: "white", fontSize: 30 }}>🗒️</Text>
+          <Text style={styles.barText}>🗒️</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("New Post", { lang: lang })}
         >
-          <Text style={{ color: "white", fontSize: 36 }}>📝</Text>
+          <Text style={styles.barText}>📝</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("Search", { lang: lang })}
         >
-          <Text style={{ color: "white", fontSize: 24 }}>🔎</Text>
+          <Text style={styles.barText}>🔎</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -110,11 +110,15 @@ const styles = StyleSheet.create({
     flex: 0.1,
     height: "10%",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     position: "absolute",
     bottom: 0,
     width: "100%",
     backgroundColor: "dodgerblue",
     flexDirection: "row",
+  },
+  barText: {
+    fontSize: 60,
+    color: "white",
   },
 });
