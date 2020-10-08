@@ -11,6 +11,16 @@ import { ScrollView, FlatList } from "react-native-gesture-handler";
 import firebase from "../firebaseDb";
 import Posts from "../Post";
 
+function count() {
+  firebase
+    .firestore()
+    .collection("Posts")
+    .get()
+    .then((querySnapshot) => {
+      setCount(querySnapshot.size);
+    });
+}
+
 export default function Home({ route, navigation }) {
   //const { cat } = route.params; //Category
 
@@ -18,6 +28,8 @@ export default function Home({ route, navigation }) {
 
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const postSet = firebase.firestore().collection("Posts");
@@ -54,29 +66,32 @@ export default function Home({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 36 }}>{user}</Text>
+      <Text style={{ fontSize: 36 }}>HOME</Text>
 
-      <ScrollView>
-        {/* <FlatList
-          style={{ flex: 1 }}
-          data={posts}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Post {...item} />}
-        /> */}
-      </ScrollView>
+      <Text style={{ fontSize: 18 }}>
+        Find what you need from {count} posts...
+      </Text>
+
       <View style={styles.bar}>
-        <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-          <Text style={{ color: "white", fontSize: 24 }}>
-            {lang.home.settings}
-          </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Settings", { lang: lang })}
+        >
+          <Text style={{ color: "white", fontSize: 24 }}>⚙️</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("New Post")}>
-          <Text style={{ color: "white", fontSize: 24 }}>New Post</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("My Posts", { lang: lang })}
+        >
+          <Text style={{ color: "white", fontSize: 30 }}>🗒️</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-          <Text style={{ color: "white", fontSize: 24 }}>
-            {lang.home.search}
-          </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("New Post", { lang: lang })}
+        >
+          <Text style={{ color: "white", fontSize: 36 }}>📝</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Search", { lang: lang })}
+        >
+          <Text style={{ color: "white", fontSize: 24 }}>🔎</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -89,6 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingTop: Platform.OS === "android" ? 35 : 0,
+    alignItems: "center",
   },
   bar: {
     flex: 0.1,

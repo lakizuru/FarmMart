@@ -14,6 +14,8 @@ import NewPost from "./screens/NewPost";
 import Settings from "./screens/Settings";
 import Recovery from "./screens/Recovery";
 import DetailedView from "./screens/DetailedView";
+import SearchResults from "./screens/SearchResults";
+import MyPosts from "./screens/MyPosts";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -40,6 +42,11 @@ export default function App() {
           name="Detailed View"
           component={DetailedView}
         ></Stack.Screen>
+        <Stack.Screen
+          name="Search Results"
+          component={SearchResults}
+        ></Stack.Screen>
+        <Stack.Screen name="My Posts" component={MyPosts}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

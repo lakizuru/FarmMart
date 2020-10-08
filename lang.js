@@ -3,6 +3,9 @@ const sin = {
     greet: "ආයුබෝවන්!",
     phone: "දුරකතන අංකය",
     password: "මුරපදය",
+    loginBtn: "ඇතුල්වන්න",
+    forgotPW: "මුරපදය අමතකවුණාද?",
+    signUpBtn: "ලියාපදිංචි වන්න",
   },
   home: {
     settings: "සැකසුම්",
@@ -15,6 +18,9 @@ const tam = {
     greet: "வணக்கம்!",
     phone: "தொலைபேசி எண்",
     password: "கடவுச்சொல்",
+    loginBtn: "உள்நுழைய",
+    forgotPW: "கடவுச்சொல்லை மறந்துவிட்டீர்களா?",
+    signUpBtn: "பதிவுபெறுதல்",
   },
   home: {
     settings: "அமைப்புகள்",
@@ -27,6 +33,9 @@ const eng = {
     greet: "Welcome!",
     phone: "Phone Number",
     password: "Password",
+    loginBtn: "Login",
+    forgotPW: "Forgot Password?",
+    signUpBtn: "Sign Up",
   },
   home: {
     settings: "Settings",

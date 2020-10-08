@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
   View,
@@ -17,6 +18,7 @@ export default class SignUp extends React.Component {
     category: "",
     district: "",
   };
+
   render() {
     return (
       <KeyboardAvoidingView

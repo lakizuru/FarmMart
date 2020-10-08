@@ -9,32 +9,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Button,
-  Alert,
 } from "react-native";
-
-function signUp(pPhone, pPassword) {
-  // const dbRef = firebase.firestore().collection("users");
-  // dbRef
-  //   .add({
-  //     phone: pPhone,
-  //     password: pPassword,
-  //   })
-  //   .then((res) => {
-  //     console.log(res.id);
-  //   });
-
-  firebase
-    .firestore()
-    .collection("Users")
-    .doc(pPhone)
-    .set({
-      password: pPassword,
-    })
-    .then(() => {
-      console.log("User added!");
-    });
-}
 
 function logIn(pPhone, pPassword, navigation, lang) {
   const user = firebase.firestore().collection("Users").doc(pPhone);
@@ -59,7 +34,7 @@ function logIn(pPhone, pPassword, navigation, lang) {
 
 export default function Login({ route, navigation }) {
   const [phone, setPhone] = useState({
-    phone: "0715889333",
+    phone: "0",
   });
   const [password, setPassword] = useState({
     password: "test",
@@ -67,8 +42,34 @@ export default function Login({ route, navigation }) {
 
   const { lang } = route.params;
 
+  const [langNew, setLangNew] = useState({
+    langNew: "eng",
+  });
+
   return (
     <View style={styles.container}>
+      {/* <View style={styles.langBar}>
+        <TouchableOpacity
+          style={styles.langButton}
+          onPress={() => setLangNew("sin")}
+        >
+          <Text style={styles.btnText}>සි</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.langButton}
+          onPress={() => setLangNew("tam")}
+        >
+          <Text style={styles.btnText}>த</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.langButton}
+          onPress={() => setLangNew("eng")}
+        >
+          <Text style={styles.btnText}>E</Text>
+        </TouchableOpacity>
+      </View> */}
       <Text style={styles.logo}> {lang.login.greet}</Text>
 
       <View style={styles.inputView}>
@@ -102,15 +103,17 @@ export default function Login({ route, navigation }) {
         onPress={() => logIn(phone, password, navigation, lang)}
         //onPress={() => navigation.navigate("Home", { lang: lang })}
       >
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text style={{ fontSize: 24, color: "white" }}>
+          {lang.login.loginBtn}
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Account Recovery")}>
-        <Text style={styles.forgot}>Forgot Password?</Text>
+        <Text style={{ fontSize: 20 }}>{lang.login.forgotPW}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
-        <Text style={styles.loginText}>Signup</Text>
+        <Text style={{ fontSize: 20 }}>{lang.login.signUpBtn}</Text>
       </TouchableOpacity>
 
       <StatusBar style="auto" />
@@ -158,5 +161,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     marginBottom: 10,
+  },
+  langBar: {
+    flex: 0.2,
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "space-around",
+  },
+  langButton: {
+    padding: 15,
+    borderRadius: 25,
+    backgroundColor: "#fb5b5a",
+    width: 20,
   },
 });
