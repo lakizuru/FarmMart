@@ -7,10 +7,6 @@ const sin = {
     forgotPW: "මුරපදය අමතකවුණාද?",
     signUpBtn: "ලියාපදිංචි වන්න",
   },
-  home: {
-    settings: "සැකසුම්",
-    search: "සෙවීම",
-  },
 };
 
 const tam = {
@@ -22,10 +18,6 @@ const tam = {
     forgotPW: "கடவுச்சொல்லை மறந்துவிட்டீர்களா?",
     signUpBtn: "பதிவுபெறுதல்",
   },
-  home: {
-    settings: "அமைப்புகள்",
-    search: "தேடல்",
-  },
 };
 
 const eng = {
@@ -36,10 +28,6 @@ const eng = {
     loginBtn: "Login",
     forgotPW: "Forgot Password?",
     signUpBtn: "Sign Up",
-  },
-  home: {
-    settings: "Settings",
-    search: "Search",
   },
 };
 

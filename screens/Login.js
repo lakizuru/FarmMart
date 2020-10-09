@@ -14,20 +14,27 @@ import {
 
 import logoImg from "../assets/icon.png";
 
-function logIn(pPhone, pPassword, navigation, lang) {
-  const user = firebase.firestore().collection("Users").doc(pPhone);
+function logIn(pCred, navigation, lang) {
+  const user = firebase.firestore().collection("Users").doc(pCred.phone);
+
+  //const data = { name: "", district: "", area: "", password: "" };
 
   user
     .get()
     .then(function (doc) {
       if (doc.exists) {
-        navigation.navigate("Home", {
-          lang: lang,
-          user: toString(doc.data().password),
-        });
+        const { name, district, area, password } = doc.data();
+        if (pCred.password == password) {
+          navigation.navigate("Home", {
+            lang: lang,
+          });
+        }
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
+        // navigation.navigate("Search Results", {
+        //   lang: lang,
+        // });
       }
     })
     .catch(function (error) {
@@ -36,8 +43,10 @@ function logIn(pPhone, pPassword, navigation, lang) {
 }
 
 export default function Login({ route, navigation }) {
-  const [phone, setPhone] = useState();
-  const [password, setPassword] = useState();
+  const [cred, setCred] = useState({
+    phone: "",
+    password: "",
+  });
 
   const { lang } = route.params;
 
@@ -78,7 +87,7 @@ export default function Login({ route, navigation }) {
           style={styles.inputText}
           placeholder={lang.login.phone}
           placeholderTextColor="#003f5c"
-          onChangeText={(text) => setPhone(text)}
+          onChangeText={(text) => setCred({ phone: text })}
           //enablesReturnKeyAutomatically="true"
           keyboardType="phone-pad"
         />
@@ -88,7 +97,7 @@ export default function Login({ route, navigation }) {
           style={styles.inputText}
           placeholder={lang.login.password}
           placeholderTextColor="#003f5c"
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => setCred({ password: text })}
           secureTextEntry
           //enablesReturnKeyAutomatically="true"
           textContentType="password"
@@ -98,7 +107,7 @@ export default function Login({ route, navigation }) {
       <TouchableOpacity
         style={styles.loginBtn}
         //onPress={() => Push_data(phone, password)}
-        onPress={() => logIn(phone, password, navigation, lang)}
+        onPress={() => logIn(cred, navigation, lang)}
         //onPress={() => navigation.navigate("Home", { lang: lang })}
       >
         <Text style={{ fontSize: 24, color: "white" }}>

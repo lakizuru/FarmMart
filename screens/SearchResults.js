@@ -22,3 +22,13 @@ export default function SearchResults({ route, navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    flex: 1,
+    flexDirection: "column",
+    paddingTop: Platform.OS === "android" ? 35 : 0,
+    alignItems: "center",
+  },
+});

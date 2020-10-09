@@ -7,9 +7,7 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { ScrollView, FlatList } from "react-native-gesture-handler";
 import firebase from "../firebaseDb";
-import Posts from "../Post";
 
 function count() {
   firebase
@@ -30,39 +28,6 @@ export default function Home({ route, navigation }) {
   const [posts, setPosts] = useState([]);
 
   const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const postSet = firebase.firestore().collection("Posts");
-    return postSet.onSnapshot((querySnapshot) => {
-      const list = [];
-      querySnapshot.forEach((doc) => {
-        const {
-          title,
-          category,
-          description,
-          price,
-          unit,
-          quantity,
-          area,
-          district,
-        } = doc.data();
-        list.push({
-          id: doc.id,
-          category,
-          description,
-          price,
-          unit,
-          quantity,
-          area,
-          district,
-        });
-      });
-    });
-  }, []);
-
-  // if (loading) {
-  //   return null; // or a spinner
-  // }
 
   return (
     <View style={styles.container}>
