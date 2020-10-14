@@ -14,8 +14,8 @@ import {
 
 import logoImg from "../assets/icon.png";
 
-function logIn(pCred, navigation, lang) {
-  const user = firebase.firestore().collection("Users").doc(pCred.phone);
+function logIn(phone, password, navigation, lang) {
+  const user = firebase.firestore().collection("Users").doc(phone);
 
   //const data = { name: "", district: "", area: "", password: "" };
 
@@ -23,11 +23,14 @@ function logIn(pCred, navigation, lang) {
     .get()
     .then(function (doc) {
       if (doc.exists) {
-        const { name, district, area, password } = doc.data();
-        if (pCred.password == password) {
-          navigation.navigate("Home", {
-            lang: lang,
-          });
+        const { dbName, dbDistrict, dbArea, dbPassword } = doc.data();
+        if (password == dbPassword) {
+           navigation.navigate("Home", {
+             lang: lang,
+           });
+        }
+        else{
+          navigation.navigate("Account Recovery");
         }
       } else {
         // doc.data() will be undefined in this case
@@ -42,42 +45,38 @@ function logIn(pCred, navigation, lang) {
     });
 }
 
-export default function Login({ route, navigation }) {
-  const [cred, setCred] = useState({
-    phone: "",
-    password: "",
-  });
+export default function Login({ route, navigation }) { 
+  
+  var { lang } = route.params;
 
-  const { lang } = route.params;
-
-  const [langNew, setLangNew] = useState({
-    langNew: "eng",
-  });
+  const [phone, setPhone] = useState();
+  const [password, setPassword] = useState();
 
   return (
     <View style={styles.container}>
       {/* <View style={styles.langBar}>
         <TouchableOpacity
           style={styles.langButton}
-          onPress={() => setLangNew("sin")}
+          onPress={() => navigation.navigate("Login", { lang: sin })}
         >
           <Text style={styles.btnText}>සි</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.langButton}
-          onPress={() => setLangNew("tam")}
+          onPress={() => navigation.navigate("Login", { lang: tam })}
         >
           <Text style={styles.btnText}>த</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.langButton}
-          onPress={() => setLangNew("eng")}
+          onPress={() => navigation.navigate("Login", { lang: eng })}
         >
           <Text style={styles.btnText}>E</Text>
         </TouchableOpacity>
       </View> */}
+
       <Text style={styles.greet}> {lang.login.greet}</Text>
       <Image source={logoImg} style={styles.image} />
 
@@ -87,7 +86,7 @@ export default function Login({ route, navigation }) {
           style={styles.inputText}
           placeholder={lang.login.phone}
           placeholderTextColor="#003f5c"
-          onChangeText={(text) => setCred({ phone: text })}
+          onChangeText={(text) => setPhone(text)}
           //enablesReturnKeyAutomatically="true"
           keyboardType="phone-pad"
         />
@@ -97,9 +96,8 @@ export default function Login({ route, navigation }) {
           style={styles.inputText}
           placeholder={lang.login.password}
           placeholderTextColor="#003f5c"
-          onChangeText={(text) => setCred({ password: text })}
+          onChangeText={(text) => setPassword(text)}
           secureTextEntry
-          //enablesReturnKeyAutomatically="true"
           textContentType="password"
           //maxLength="16"
         />
@@ -107,7 +105,7 @@ export default function Login({ route, navigation }) {
       <TouchableOpacity
         style={styles.loginBtn}
         //onPress={() => Push_data(phone, password)}
-        onPress={() => logIn(cred, navigation, lang)}
+        onPress={() => logIn(phone, password, navigation, lang)}
         //onPress={() => navigation.navigate("Home", { lang: lang })}
       >
         <Text style={{ fontSize: 24, color: "white" }}>
