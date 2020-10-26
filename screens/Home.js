@@ -50,11 +50,12 @@ export default function Home({ route, navigation }) {
   Hi, {user}. Find what you need from {posts.length} posts...
       </Text>
 
-<FlatList
+      <View style = {{width: '90%'}}>
+      <FlatList
     data={posts}
     renderItem={({ item }) => (
-      <TouchableHighlight underlayColor = 'lightblue' onPress={() => navigation.navigate("Detailed View", { lang: lang, doc: item.key })}>
-        <View style={styles.rowContaner}>
+      <TouchableHighlight underlayColor= 'lightblue' style = {styles.post} onPress={() => navigation.navigate("Detailed View", { lang: lang, doc: item.key })}>
+        <View style={styles.rowContainer}>
         <Text style = {styles.itemTitle}>{item.title}</Text>
         <Text>{item.category}</Text>
         <Text>Price per {item.unit}: LKR {item.price}</Text>
@@ -67,6 +68,8 @@ export default function Home({ route, navigation }) {
       
     )}
     />
+
+      </View>
 
       <View style={styles.bar}>
         <TouchableOpacity
@@ -95,6 +98,11 @@ export default function Home({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  post:{
+    backgroundColor: 'lightgreen',
+    borderStyle: "solid",    
+    borderRadius: 15,
+  },
   container: {
     backgroundColor: "white",
     flex: 1,
@@ -125,11 +133,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#dddddd'
   },
   rowContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     padding: 15,
-    borderRadius: 15,
-    color: 'yellow'
-
   },
 
 });
