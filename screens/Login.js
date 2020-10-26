@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "react-native-gesture-handler";
 import firebase from "../firebaseDb";
 
+
 import {
   StyleSheet,
   Text,
@@ -16,13 +17,16 @@ import logoImg from "../assets/icon.png";
 
 function logIn(phone, pass, navigation, lang) {
   const user = firebase.firestore().collection("Users").doc(phone);
+  window.localStorage.setItem("phoneNo",phone)
+
+
 
   user
     .get()
     .then(function (doc) {
       if (doc.exists) {
         const { area, district, name, password } = doc.data();
-        console.log(password);
+        //console.log(password);
         if (password == pass) {
            navigation.navigate("Home", {
              lang: lang,

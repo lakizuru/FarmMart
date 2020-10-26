@@ -1,4 +1,5 @@
 import React from "react";
+import firebase from "../firebaseDb";
 import {
   View,
   Text,
@@ -11,17 +12,30 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export default class NewPost extends React.Component {
+
+  dbRef = firebase.firestore().collection('Posts');
   state = {
-    Category: '', Description: '', Division: '', title: ''
+    Category: '', Description: '', Division: '', Title: '',Unit:'',Price:'',Quantity:''
   }
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
   NewPost = async () => {
-    const { username, password, email, phone_number } = this.state
+    
     try {
+      this.dbRef.add({
+        area:this.state.Division,
+        category:this.state.Category,
+        description:this.state.Description,
+        price:this.state.Price,
+        qty:this.state.Quantity,
+        title:this.state.Title,
+        unit:this.state.Unit
+
+
+      })
       // here place your signup logic
-      console.log('user successfully signed up!: ', success)
+      console.log('Post Added ', success)
     } catch (err) {
       console.log('error signing up: ', err)
     }
@@ -56,7 +70,7 @@ export default class NewPost extends React.Component {
   }}
     labelStyle={{color:'white',    backgroundColor: "#06283B",
     padding:10,borderRadius:30,width:300}}
-    onChangeItem={item => console.log(item.label, item.value)}
+    onChangeItem={item => this.onChangeText('Category', item.value)}
 />
         
           <TextInput
@@ -64,7 +78,7 @@ export default class NewPost extends React.Component {
           placeholder='Title'
           autoCapitalize="none"
           placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('title', val)}
+          onChangeText={val => this.onChangeText('Title', val)}
         />
         
         <TextInput
@@ -93,9 +107,9 @@ export default class NewPost extends React.Component {
     flexDirection: "column",paddingBottom:10}}>
       <View style={{flexDirection: "row",justifyContent:'space-evenly',padding:10,paddingBottom:10}}>
           
-         <TextInput style={styles.co1} placeholder='Price' placeholderTextColor='white'/>
-         <TextInput style={styles.co1} placeholder='Unit'placeholderTextColor='white' />
-         <TextInput style={styles.co1} placeholder='Quantity'placeholderTextColor='white'/>
+         <TextInput style={styles.co1} placeholder='Price' placeholderTextColor='white' onChangeText={val => this.onChangeText('Price', val)}/>
+         <TextInput style={styles.co1} placeholder='Unit'placeholderTextColor='white' onChangeText={val => this.onChangeText('Unit', val)} />
+         <TextInput style={styles.co1} placeholder='Quantity'placeholderTextColor='white' onChangeText={val => this.onChangeText('Quantity', val)}/>
          </View>
        </View>
 
@@ -106,7 +120,7 @@ export default class NewPost extends React.Component {
           placeholder='Division'
           autoCapitalize="none"
           placeholderTextColor='white'
-          //onChangeText={val => this.onChangeText('Division', val)}
+          onChangeText={val => this.onChangeText('Division', val)}
         />
 
  <DropDownPicker
@@ -124,7 +138,8 @@ export default class NewPost extends React.Component {
         {label: 'Kandy',value:'Kandy'},
         {label: 'Kegalle',value:'Kegalle'},
         {label: 'Kilinochchi',value:'Kilinochchi'},
-        {label: 'KurunegalaMannar',value:'KurunegalaMannar'},
+        {label: 'Kurunegala',value:'Kurunegala'},
+        {label: 'Mannar',value:'Mannar'},
         {label: 'Matale',value:'Matale'},
         {label: 'Matara',value:'Matara'},
         {label: 'Moneragala',value:'Moneragala'},
@@ -150,49 +165,17 @@ export default class NewPost extends React.Component {
   }}
     labelStyle={{color:'white',    backgroundColor: "#06283B",
     padding:10,borderRadius:30,width:300}}
-    onChangeItem={item => console.log(item.label, item.value)}
+    onChangeItem={item => this.onChangeText('Description', item.value)}
 />
 
-            <Text style={styles.tet}>Division</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Division"
-              autoCapitalize="none"
-              placeholderTextColor="white"
-              //onChangeText={val => this.onChangeText('Division', val)}
-            />
-            <Text style={styles.tet}>District</Text>
-            <DropDownPicker
-              items={[
-                { label: "Anuradapura", value: "Anuradapura" },
-                { label: "shone", value: "shone" },
-              ]}
-              defaultIndex={0}
-              placeholder="Select District"
-              containerStyle={{ width: 370, height: 50, marginLeft: 15 }}
-              dropDownStyle={{ backgroundColor: "white" }}
-              placeholderStyle={{
-                fontWeight: "bold",
-                padding: 10,
-                color: "white",
-                borderRadius: 5,
-              }}
-              labelStyle={{
-                color: "white",
-                backgroundColor: "#1696f2",
-                padding: 10,
-                borderRadius: 30,
-                width: 300,
-              }}
-              onChangeItem={(item) => console.log(item.label, item.value)}
-            />
+
 
         <View style={{    justifyContent: 'center',
     alignItems: 'center',padding:40}}>
         <Button
           
           title='Publish'
-          onPress={this.Publish}
+          onPress={() => {this.NewPost();this.props.navigation.navigate('Home');}}
           color="#ff8080"
         />
         </View>

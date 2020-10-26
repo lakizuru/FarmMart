@@ -1,4 +1,7 @@
 import React from "react";
+import firebase from "../firebaseDb";
+
+
 import {
   View,
   Text,
@@ -11,24 +14,39 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 export default class SignUp extends React.Component {
  
+  dbRef = firebase.firestore().collection('Users');
 
   state = {
-    username: '', password: '', Division: '', phone_number: '',ConfirmPassword:'',District:''
+    firstname: '',lastname:'', password: '', Division: '', phone_number: '',ConfirmPassword:'',District:''
   }
+
+
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
   signUp = async () => {
-    const { username, password,Division, phone_number ,ConfirmPassword,District} = this.state
+    const { fname,lname, password,Division, phone_number ,ConfirmPassword,District} = this.state
     try {
       // here place your signup logic
-      console.log('user successfully signed up!: ', success)
+      this.dbRef.doc(this.state.phone_number).set({
+        area : this.state.Division,
+        district:this.state.District,
+        fname: this.state.firstname,
+        lname: this.state.lastname,
+        password: this.state.password
+      })
+      
+      console.log('user successfully signed up!:')
     } catch (err) {
       console.log('error signing up: ', err)
     }
   }
  
+
+ 
+
   render() {
+    
     
     return (
      
@@ -51,10 +69,18 @@ export default class SignUp extends React.Component {
         
         <TextInput
           style={styles.input}
-          placeholder='Username'
+          placeholder='Firstname'
           autoCapitalize="none"
           placeholderTextColor="white"
-          onChangeText={val => this.onChangeText('username', val)}
+          onChangeText={val => this.onChangeText('firstname', val)}
+
+        />
+          <TextInput
+          style={styles.input}
+          placeholder='Lastname'
+          autoCapitalize="none"
+          placeholderTextColor="white"
+          onChangeText={val => this.onChangeText('lastname', val)}
 
         />
      
@@ -99,7 +125,7 @@ export default class SignUp extends React.Component {
   }}
     labelStyle={{color:'white',    backgroundColor: "#06283B",
     padding:10,borderRadius:30,width:300}}
-    onChangeItem={item => console.log(item.label, item.value)}
+    onChangeItem={item => this.onChangeText('District', item.value)}
 />
 
                 
@@ -117,7 +143,7 @@ export default class SignUp extends React.Component {
           secureTextEntry={true}
           autoCapitalize="none"
           placeholderTextColor="white"
-          onChangeText={val => this.onChangeText('Password', val)}
+          onChangeText={val => this.onChangeText('password', val)}
         />
        
 
@@ -147,6 +173,9 @@ export default class SignUp extends React.Component {
     )
   }
 }
+
+
+
 
 const styles = StyleSheet.create({
   input: {

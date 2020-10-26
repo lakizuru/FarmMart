@@ -1,4 +1,5 @@
 import React from "react";
+import firebase from "../firebaseDb";
 import {
   View,
   Text,
@@ -10,21 +11,76 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 
 export default class Settings extends React.Component {
-  state = {
-    username: '', District: '', phone_number: '',Password:'',Confirmpassword:'',Division:''
+
+  constructor(){
+    super();
   }
+
+  state = {
+    firstname: '',lastname:'', District: '', phone_number: '',Password:'',Confirmpassword:'',Division:''
+  }
+
+  phoneNo = window.localStorage.getItem("phoneNo");
+
+  
+  componentDidMount(){
+    console.log(this.phoneNo);
+    const user = firebase.firestore().collection("Users").doc(this.phoneNo);
+
+    user
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        const ans = doc.data();
+        this.setState({
+          firstname : ans.fname,
+          lastname:ans.lname,
+          District: ans.district,
+          Password: ans.password,
+          Division:ans.area
+        })
+        
+        
+      }
+    })
+  }
+  
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
-  Settings = async () => {
-    const { username, password, email, phone_number } = this.state
+  settings = async () => {
+    
+    
+
+    const { fname,lname, password, email, phone_number } = this.state
     try {
       // here place your signup logic
-      console.log('user successfully signed up!: ', success)
+      console.log('user successfully signed up!: ')
     } catch (err) {
       console.log('error signing up: ', err)
     }
   }
+
+
+  updateUser(){
+    try {
+      
+      const dbRef = firebase.firestore().collection('Users');
+      dbRef.doc(this.phoneNo).set({
+        area : this.state.Division,
+        district:this.state.District,
+        fname: this.state.firstname,
+        lname: this.state.lastname,
+        password: this.state.Password
+      })
+      
+      console.log('user successfully updated')
+    } catch (err) {
+      console.log('error signing up: ', err)
+    }
+  }
+
+  
 
   render() {
     return (
@@ -36,7 +92,9 @@ export default class Settings extends React.Component {
         
         <Button
           title='Logout'
-          onPress={this.signUp}
+          onPress={() =>
+            this.props.navigation.navigate('Login')
+          }
           color='#fb5b5a'
         />
       
@@ -44,20 +102,23 @@ export default class Settings extends React.Component {
         </View>
         <TextInput
           style={styles.input}
-          placeholder='Username'
+          
           autoCapitalize="none"
-          placeholderTextColor="white"
-          onChangeText={val => this.onChangeText('username', val)}
+          
+          value = {this.state.firstname}
+          onChangeText={val => this.onChangeText('firstname', val)}
 
         />
-          <TextInput
+        <TextInput
           style={styles.input}
-          placeholder='Phone Number'
+          placeholder='Lastname'
           autoCapitalize="none"
+          value = {this.state.lastname}
           placeholderTextColor="white"
-          
-          onChangeText={val => this.onChangeText('phone_number', val)}
+          onChangeText={val => this.onChangeText('lastname', val)}
+
         />
+         
 
 <DropDownPicker
     items={[
@@ -94,13 +155,14 @@ export default class Settings extends React.Component {
     placeholder='Select District'
     containerStyle={{width:370,height: 50,marginLeft:5,marginBottom:15,marginTop:15}}
     dropDownStyle={{backgroundColor: 'white',borderColor:'black'}}
+    value = {this.state.District}
     placeholderStyle={{
       fontWeight: 'bold',padding:10 ,color:'white',
       borderRadius:5
   }}
     labelStyle={{color:'white',    backgroundColor: "#06283B",
     padding:10,borderRadius:30,width:300}}
-    onChangeItem={item => console.log(item.label, item.value)}
+    onChangeItem={item => this.onChangeText('District', item.value)}
 />
 
 
@@ -110,35 +172,11 @@ export default class Settings extends React.Component {
           placeholder='Division'
           autoCapitalize="none"
           placeholderTextColor="white"
+          value = {this.state.Division}
           onChangeText={val => this.onChangeText('Division', val)}
         />
 
-            <Text style={styles.tet}>Division</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Division"
-              autoCapitalize="none"
-              placeholderTextColor="white"
-              onChangeText={(val) => this.onChangeText("Division", val)}
-            />
-            <Text style={styles.tet}>Password</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              secureTextEntry={true}
-              autoCapitalize="none"
-              placeholderTextColor="white"
-              onChangeText={(val) => this.onChangeText("Password", val)}
-            />
-            <Text style={styles.tet}>Conform Password</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Conform Password"
-              secureTextEntry={true}
-              autoCapitalize="none"
-              placeholderTextColor="white"
-              onChangeText={(val) => this.onChangeText("Conformpassword", val)}
-            />
+
 
 <TextInput
           style={styles.input}
@@ -146,6 +184,7 @@ export default class Settings extends React.Component {
           secureTextEntry={true}
           autoCapitalize="none"
           placeholderTextColor="white"
+          value = {this.state.Password}
           onChangeText={val => this.onChangeText('Password', val)}
         />
           <TextInput
@@ -155,6 +194,7 @@ export default class Settings extends React.Component {
          secureTextEntry={true}
          autoCapitalize="none"
          placeholderTextColor="white"
+         value = {this.state.Password}
 
          onChangeText={val => this.onChangeText('Confirmpassword', val)}
        />
@@ -164,7 +204,7 @@ export default class Settings extends React.Component {
         <Button
           
           title='Update'
-          onPress={this.update}
+          onPress={() => {this.updateUser();this.props.navigation.navigate('Home');}}
           color='#fb5b5a'
         />
         </View>
