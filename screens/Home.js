@@ -6,36 +6,58 @@ import {
   View,
   Platform,
   TouchableOpacity,
+  ActivityIndicator,
+  FlatList
 } from "react-native";
 import firebase from "../firebaseDb";
 
-function count() {
-  firebase
-    .firestore()
-    .collection("Posts")
-    .get()
-    .then((querySnapshot) => {
-      setCount(querySnapshot.size);
-    });
-}
-
 export default function Home({ route, navigation }) {
-  //const { cat } = route.params; //Category
-
   const { lang, user } = route.params; // gets the preffered language to the screen
 
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
-  const [count, setCount] = useState(0);
+  useEffect (() => {
+    const subscriber = firebase.firestore().collection('Posts').onSnapshot(querySnapshot => {
+      const posts = [];
 
+      querySnapshot.forEach(documentSnapshot => {
+        posts.push({
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id, 
+        });
+      });
+
+      setPosts(posts);
+      setLoading(false);
+
+    });
+
+    return () => subscriber();
+  }, []);
+
+  if (loading){
+    return <ActivityIndicator/>
+  }
+  
   return (
+
     <View style={styles.container}>
       <Text style={{ fontSize: 36 }}>HOME</Text>
 
       <Text style={{ fontSize: 18 }}>
-        Find what you need from {count} posts...
+        Find what you need from {posts.length} posts...
       </Text>
+
+<FlatList
+    data={posts}
+    renderItem={({ item }) => (
+      <View style={{ height: 50, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightblue', borderColor: 'dodgerblue' }}>
+        <Text style = {styles.itemTitle}>{item.title}</Text>
+        <Text>{item.description}</Text>
+      </View>
+    )}
+    />
 
       <View style={styles.bar}>
         <TouchableOpacity
@@ -86,4 +108,8 @@ const styles = StyleSheet.create({
     fontSize: 60,
     color: "white",
   },
+  itemTitle: {
+    fontSize: 20,
+  },
+
 });

@@ -14,17 +14,16 @@ import {
 
 import logoImg from "../assets/icon.png";
 
-function logIn(phone, password, navigation, lang) {
+function logIn(phone, pass, navigation, lang) {
   const user = firebase.firestore().collection("Users").doc(phone);
-
-  //const data = { name: "", district: "", area: "", password: "" };
 
   user
     .get()
     .then(function (doc) {
       if (doc.exists) {
-        const { dbName, dbDistrict, dbArea, dbPassword } = doc.data();
-        if (password == dbPassword) {
+        const { area, district, name, password } = doc.data();
+        console.log(password);
+        if (password == pass) {
            navigation.navigate("Home", {
              lang: lang,
            });
