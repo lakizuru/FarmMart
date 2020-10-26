@@ -29,7 +29,7 @@ function logIn(phone, pass, navigation, lang) {
         //console.log(password);
         if (password == pass) {
            navigation.navigate("Home", {
-             lang: lang,
+             lang: lang, user: doc.id
            });
         }
         else{

@@ -1,6 +1,7 @@
-import { StyleSheet, Platform } from "react-native";
+import { Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+// import { createDrawerNavigator } from '@react-navigation/drawer';
 import "react-native-gesture-handler";
 import React from "react";
 
@@ -19,6 +20,7 @@ import MyPosts from "./screens/MyPosts";
 
 export default function App() {
   const Stack = createStackNavigator();
+  // const Drawer = createDrawerNavigator();
 
   return (
     <NavigationContainer>
@@ -48,6 +50,14 @@ export default function App() {
         ></Stack.Screen>
         <Stack.Screen name="My Posts" component={MyPosts}></Stack.Screen>
       </Stack.Navigator>
+
+      {/* <Drawer.Navigator>
+        <Drawer.Screen name = 'Home' component = {Home}/>
+        <Drawer.Screen name = 'Search' component = {Search}/>
+        <Drawer.Screen name = 'New Post' component = {NewPost}/>
+        <Drawer.Screen name = 'My Posts' component = {MyPosts}/>
+        <Drawer.Screen name = 'Settings' component = {Settings}/>
+      </Drawer.Navigator> */}
     </NavigationContainer>
   );
 }
