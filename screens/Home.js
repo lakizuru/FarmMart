@@ -10,6 +10,7 @@ import {
   FlatList
 } from "react-native";
 import firebase from "../firebaseDb";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 export default function Home({ route, navigation }) {
   const { lang, user } = route.params; // gets the preffered language to the screen
@@ -46,16 +47,24 @@ export default function Home({ route, navigation }) {
       <Text style={{ fontSize: 36 }}>HOME</Text>
 
       <Text style={{ fontSize: 18 }}>
-        Find what you need from {posts.length} posts...
+  Hi, {user}. Find what you need from {posts.length} posts...
       </Text>
 
 <FlatList
     data={posts}
     renderItem={({ item }) => (
-      <View style={{ height: 50, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightblue', borderColor: 'dodgerblue' }}>
+      <TouchableHighlight underlayColor = 'lightblue' onPress={() => navigation.navigate("Detailed View", { lang: lang, doc: item.key })}>
+        <View style={styles.rowContaner}>
         <Text style = {styles.itemTitle}>{item.title}</Text>
-        <Text>{item.description}</Text>
+        <Text>{item.category}</Text>
+        <Text>Price per {item.unit}: LKR {item.price}</Text>
+        <Text>Qty: {item.qty} {item.unit}</Text>
+        <Text>Location: {item.area}, {item.district}</Text>
+        
+        <View style={styles.separator}/>
       </View>
+      </TouchableHighlight>
+      
     )}
     />
 
@@ -110,6 +119,17 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     fontSize: 20,
+  },
+  separator:{
+    height: 1,
+    backgroundColor: '#dddddd'
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    padding: 15,
+    borderRadius: 15,
+    color: 'yellow'
+
   },
 
 });
