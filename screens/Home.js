@@ -7,13 +7,32 @@ import {
   Platform,
   TouchableOpacity,
   ActivityIndicator,
-  FlatList
+  FlatList,
 } from "react-native";
 import firebase from "../firebaseDb";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Home({ route, navigation }) {
-  const { lang, user } = route.params; // gets the preffered language to the screen
+  //const { lang, user, fname, district } = 'route.params';
+  const [lang, setLang] = useState();
+  const [user, setUser] = useState();
+  const [fname, setFname] = useState();
+  const [district, setDistrict] = useState();
+  
+  async () => {
+    const lang = await AsyncStorage.getItem('lang');
+    const phone = await AsyncStorage.getItem('phone');
+    const fname = await AsyncStorage.getItem('fname');
+    const district = await AsyncStorage.getItem('district');
+
+    if (phone !== null){
+      setUser(phone);
+      setLang(lang);
+      setFname(fname);
+      setDistrict(district);
+    }
+  }
 
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -47,10 +66,10 @@ export default function Home({ route, navigation }) {
       <Text style={{ fontSize: 36 }}>HOME</Text>
 
       <Text style={{ fontSize: 18 }}>
-  Hi, {user}. Find what you need from {posts.length} posts...
+  Hi, {fname}. Find what you need from {posts.length} posts...
       </Text>
 
-      <View style = {{width: '90%'}}>
+      <View style = {{width: '95%'}} >
       <FlatList
     data={posts}
     renderItem={({ item }) => (
@@ -61,8 +80,6 @@ export default function Home({ route, navigation }) {
         <Text>Price per {item.unit}: LKR {item.price}</Text>
         <Text>Qty: {item.qty} {item.unit}</Text>
         <Text>Location: {item.area}, {item.district}</Text>
-        
-        <View style={styles.separator}/>
       </View>
       </TouchableHighlight>
       
@@ -73,7 +90,7 @@ export default function Home({ route, navigation }) {
 
       <View style={styles.bar}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Settings", { lang: lang })}
+          onPress={() => navigation.navigate("Settings", { lang: lang, user: user })}
         >
           <Text style={styles.barText}>⚙️</Text>
         </TouchableOpacity>
@@ -102,6 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgreen',
     borderStyle: "solid",    
     borderRadius: 15,
+    justifyContent: "space-around"
   },
   container: {
     backgroundColor: "white",
@@ -128,13 +146,13 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 20,
   },
-  separator:{
-    height: 1,
-    backgroundColor: '#dddddd'
-  },
   rowContainer: {
     flexDirection: 'column',
     padding: 15,
+    borderRadius: 15,
+    borderStyle: "solid",
+    borderWidth: 5,
+    borderColor: 'white'
   },
 
 });
