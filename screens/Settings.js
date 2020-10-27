@@ -17,7 +17,7 @@ export default class Settings extends React.Component {
   }
 
   state = {
-    firstname: '',lastname:'', District: '', phone_number: '',Password:'',Confirmpassword:'',Division:''
+    firstname: '',lastname:'', District: '', phone_number: '',Password:'',ConfirmPassword:'',Division:''
   }
 
   phoneNo = window.localStorage.getItem("phoneNo");
@@ -64,7 +64,12 @@ export default class Settings extends React.Component {
 
   updateUser(){
     try {
-      
+
+      if(this.state.password != this.state.ConfirmPassword){
+        alert("Password Mis Matches");
+        throw err;
+      }
+
       const dbRef = firebase.firestore().collection('Users');
       dbRef.doc(this.phoneNo).set({
         area : this.state.Division,
@@ -72,7 +77,7 @@ export default class Settings extends React.Component {
         fname: this.state.firstname,
         lname: this.state.lastname,
         password: this.state.Password
-      })
+      });
       
       console.log('user successfully updated')
     } catch (err) {
@@ -194,9 +199,9 @@ export default class Settings extends React.Component {
          secureTextEntry={true}
          autoCapitalize="none"
          placeholderTextColor="white"
-         value = {this.state.Password}
+         //value = {this.state.Password}
 
-         onChangeText={val => this.onChangeText('Confirmpassword', val)}
+         onChangeText={val => this.onChangeText('ConfirmPassword', val)}
        />
 
  <View style={{    justifyContent: 'center',

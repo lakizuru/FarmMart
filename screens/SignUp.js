@@ -28,13 +28,24 @@ export default class SignUp extends React.Component {
     const { fname,lname, password,Division, phone_number ,ConfirmPassword,District} = this.state
     try {
       // here place your signup logic
+      if(this.state.phone_number.length != 10){
+        alert("Invalid Phone Number");
+        throw err;
+      }
+
+      if(this.state.password != this.state.ConfirmPassword){
+        alert("Password Mis Matches");
+        throw err;
+      }
       this.dbRef.doc(this.state.phone_number).set({
         area : this.state.Division,
         district:this.state.District,
         fname: this.state.firstname,
         lname: this.state.lastname,
         password: this.state.password
-      })
+      });
+
+      this.props.navigation.navigate('Login');
       
       console.log('user successfully signed up!:')
     } catch (err) {
@@ -59,13 +70,17 @@ export default class SignUp extends React.Component {
         </View>
         
           <TextInput
+          
           style={styles.input}
           placeholder='Phone Number'
-          autoCapitalize="none"
           placeholderTextColor="white"
           
-          onChangeText={val => this.onChangeText('phone_number', val)}
+          onChangeText={val => this.onChangeText('phone_number', val)
+        
+        }
+          maxLength={10}
         />
+
         
         <TextInput
           style={styles.input}
@@ -156,7 +171,7 @@ export default class SignUp extends React.Component {
           autoCapitalize="none"
           placeholderTextColor="white"
 
-          onChangeText={val => this.onChangeText('Confirmpassword', val)}
+          onChangeText={val => this.onChangeText('ConfirmPassword', val)}
         />
  
 
