@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Alert
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -30,20 +31,19 @@ function logIn(phone, pass, navigation, lang) {
               await AsyncStorage.setItem('district', district);
               await AsyncStorage.setItem('fname', fname);
               await AsyncStorage.setItem('lang', lang);
+              console.log(fname);
           }
            navigation.navigate("Home" /*, {
              lang: lang, user: doc.id, fname: fname, district: district
            }*/);
         }
         else{
-          navigation.navigate("Account Recovery");
+          //Invalid Password
+          Alert.alert('Invalid Password!', 'The password you entered is invalid.', [{text: 'OK', onPress: () => console.log('OK Pressed') }, {text: 'Forgot Password', onPress: () => navigation.navigate("Account Recovery")}], {cancelable: true})
         }
       } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-        // navigation.navigate("Search Results", {
-        //   lang: lang,
-        // });
+        //No account exists
+        Alert.alert('Account Not Found!', 'The credentials you entered do not match with any existing account.', [{text: 'OK', onPress: () => console.log('OK Pressed') }, {text: 'Create New Account', onPress: () => navigation.navigate("SignUp")}], {cancelable: true})
       }
     })
     .catch(function (error) {

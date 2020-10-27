@@ -21,17 +21,10 @@ export default function Home({ route, navigation }) {
   const [district, setDistrict] = useState();
   
   async () => {
-    const lang = await AsyncStorage.getItem('lang');
-    const phone = await AsyncStorage.getItem('phone');
-    const fname = await AsyncStorage.getItem('fname');
-    const district = await AsyncStorage.getItem('district');
-
-    if (phone !== null){
-      setUser(phone);
-      setLang(lang);
-      setFname(fname);
-      setDistrict(district);
-    }
+    await AsyncStorage.getItem('lang').then((lang) => setLang(lang));
+    await AsyncStorage.getItem('phone').then((phone) => setUser(phone));
+    await AsyncStorage.getItem('fname').then((fname) => setFname(fname));
+    await AsyncStorage.getItem('district').then((district) => setDistrict(district));
   }
 
   const [loading, setLoading] = useState(true);
