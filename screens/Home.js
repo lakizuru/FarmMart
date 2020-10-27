@@ -7,12 +7,25 @@ import {
   Platform,
   TouchableOpacity,
   ActivityIndicator,
-  FlatList
+  FlatList,
 } from "react-native";
 import firebase from "../firebaseDb";
+import { TouchableHighlight } from "react-native-gesture-handler";
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Home({ route, navigation }) {
-  const { lang, user } = route.params; // gets the preffered language to the screen
+  //const { lang, user, fname, district } = 'route.params';
+  const [lang, setLang] = useState();
+  const [user, setUser] = useState();
+  const [fname, setFname] = useState();
+  const [district, setDistrict] = useState();
+  
+  async () => {
+    await AsyncStorage.getItem('lang').then((lang) => setLang(lang));
+    await AsyncStorage.getItem('phone').then((phone) => setUser(phone));
+    await AsyncStorage.getItem('fname').then((fname) => setFname(fname));
+    await AsyncStorage.getItem('district').then((district) => setDistrict(district));
+  }
 
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -46,22 +59,31 @@ export default function Home({ route, navigation }) {
       <Text style={{ fontSize: 36 }}>HOME</Text>
 
       <Text style={{ fontSize: 18 }}>
-        Find what you need from {posts.length} posts...
+  Hi, {fname}. Find what you need from {posts.length} posts...
       </Text>
 
-<FlatList
+      <View style = {{width: '95%'}} >
+      <FlatList
     data={posts}
     renderItem={({ item }) => (
-      <View style={{ height: 50, flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightblue', borderColor: 'dodgerblue' }}>
+      <TouchableHighlight underlayColor= 'lightblue' style = {styles.post} onPress={() => navigation.navigate("Detailed View", { lang: lang, doc: item.key })}>
+        <View style={styles.rowContainer}>
         <Text style = {styles.itemTitle}>{item.title}</Text>
-        <Text>{item.description}</Text>
+        <Text>{item.category}</Text>
+        <Text>Price per {item.unit}: LKR {item.price}</Text>
+        <Text>Qty: {item.qty} {item.unit}</Text>
+        <Text>Location: {item.area}, {item.district}</Text>
       </View>
+      </TouchableHighlight>
+      
     )}
     />
 
+      </View>
+
       <View style={styles.bar}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Settings", { lang: lang })}
+          onPress={() => navigation.navigate("Settings", { lang: lang, user: user })}
         >
           <Text style={styles.barText}>⚙️</Text>
         </TouchableOpacity>
@@ -86,6 +108,12 @@ export default function Home({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  post:{
+    backgroundColor: 'lightgreen',
+    borderStyle: "solid",    
+    borderRadius: 15,
+    justifyContent: "space-around"
+  },
   container: {
     backgroundColor: "white",
     flex: 1,
@@ -110,6 +138,14 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     fontSize: 20,
+  },
+  rowContainer: {
+    flexDirection: 'column',
+    padding: 15,
+    borderRadius: 15,
+    borderStyle: "solid",
+    borderWidth: 5,
+    borderColor: 'white'
   },
 
 });

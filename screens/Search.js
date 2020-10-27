@@ -49,6 +49,9 @@ export default class SignUp extends React.Component {
             items={[
               { label: "Harvest", value: "Harvest" },
               { label: "Machinery", value: "Machinery" },
+              { label: "Chemicals", value: "Chemicals" },
+              { label: "Transport", value: "Transport" },
+              { label: "Others", value: "Others" },
             ]}
             defaultIndex={0}
             placeholder="Select Category"
@@ -73,8 +76,32 @@ export default class SignUp extends React.Component {
           <Text style={styles.district}>District</Text>
           <DropDownPicker
             items={[
-              { label: "Anuradapura", value: "Anuradapura" },
+              { label: "Ampara", value: "Ampara" },
+              { label: "Anuradhapura", value: "Anuradhapura" },
+              { label: "Badulla", value: "Badulla" },
+              { label: "Batticaloa", value: "Batticaloa" },
               { label: "Colombo", value: "Colombo" },
+              { label: "Galle", value: "Galle" },
+              { label: "Gampaha", value: "Gampaha" },
+              { label: "Hambanthota", value: "Hambanthota" },
+              { label: "Jaffna", value: "Jaffna" },
+              { label: "Kaluthara", value: "Kaluthara" },
+              { label: "Kandy", value: "Kandy" },
+              { label: "Kegalle", value: "Kegalle" },
+              { label: "Kilinochchi", value: "Kilinochchi" },
+              { label: "Kurunegala", value: "Kurunegala" },
+              { label: "Mannar", value: "Mannar" },
+              { label: "Mathale", value: "Mathale" },
+              { label: "Matara", value: "Matara" },
+              { label: "Moneragala", value: "Moneragala" },
+              { label: "Mullaitivu", value: "Mullaitivu" },
+              { label: "Nuwara Eliya", value: "Nuwara Eliya" },
+              { label: "Polonnaruwa", value: "Polonnaruwa" },
+              { label: "Puttalam", value: "Puttalam" },
+              { label: "Rathnapura", value: "Rathnapura" },
+              { label: "Trincomalee", value: "Trincomalee" },
+              { label: "Vavuniya", value: "Vavuniya" },
+
             ]}
             defaultIndex={0}
             placeholder="Select District"
@@ -139,5 +166,14 @@ const styles = StyleSheet.create({
     width: 375,
     height: 667,
     backgroundColor: "#003f5c",
+  },
+  container: {
+    flex: 1,
+    
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: Platform.OS === "android" ? 35 : 0,
+    backgroundColor: "#383838",
+
   },
 });

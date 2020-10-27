@@ -2,8 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import "react-native-gesture-handler";
 import firebase from "../firebaseDb";
-
-
 import {
   StyleSheet,
   Text,
@@ -11,36 +9,40 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Alert
 } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage'
 
 import logoImg from "../assets/icon.png";
 
 function logIn(phone, pass, navigation, lang) {
   const user = firebase.firestore().collection("Users").doc(phone);
-  window.localStorage.setItem("phoneNo",phone)
-
-
 
   user
     .get()
-    .then(function (doc) {
+    .then(async function (doc) {
       if (doc.exists) {
-        const { area, district, name, password } = doc.data();
+        const { area, district, fname, lname, password } = doc.data();
         //console.log(password);
         if (password == pass) {
-           navigation.navigate("Home", {
-             lang: lang,
-           });
+         
+            await AsyncStorage.setItem('phone', doc.id);
+            await AsyncStorage.setItem('area', area);
+            await AsyncStorage.setItem('district', district);
+            await AsyncStorage.setItem('fname', fname);
+            await AsyncStorage.setItem('lang', lang);
+            console.log(fname);
+           navigation.navigate("Home" /*, {
+             lang: lang, user: doc.id, fname: fname, district: district
+           }*/);
         }
         else{
-          navigation.navigate("Account Recovery");
+          //Invalid Password
+          Alert.alert('Invalid Password!', 'The password you entered is invalid.', [{text: 'OK', onPress: () => console.log('OK Pressed') }, {text: 'Forgot Password', onPress: () => navigation.navigate("Account Recovery")}], {cancelable: true})
         }
       } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-        // navigation.navigate("Search Results", {
-        //   lang: lang,
-        // });
+        //No account exists
+        Alert.alert('Account Not Found!', 'The credentials you entered do not match with any existing account.', [{text: 'OK', onPress: () => console.log('OK Pressed') }, {text: 'Create New Account', onPress: () => navigation.navigate("SignUp")}], {cancelable: true})
       }
     })
     .catch(function (error) {
@@ -107,9 +109,7 @@ export default function Login({ route, navigation }) {
       </View>
       <TouchableOpacity
         style={styles.loginBtn}
-        //onPress={() => Push_data(phone, password)}
         onPress={() => logIn(phone, password, navigation, lang)}
-        //onPress={() => navigation.navigate("Home", { lang: lang })}
       >
         <Text style={{ fontSize: 24, color: "white" }}>
           {lang.login.loginBtn}
