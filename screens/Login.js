@@ -23,16 +23,14 @@ function logIn(phone, pass, navigation, lang) {
     .then(async function (doc) {
       if (doc.exists) {
         const { area, district, fname, lname, password } = doc.data();
-        //console.log(password);
         if (password == pass) {
-         
-            await AsyncStorage.setItem('phone', doc.id);
-            await AsyncStorage.setItem('area', area);
-            await AsyncStorage.setItem('district', district);
-            await AsyncStorage.setItem('fname', fname);
-            await AsyncStorage.setItem('lang', lang);
-            console.log(fname);
-           navigation.navigate("Home" /*, {
+          await AsyncStorage.setItem('phone', doc.id);
+          await AsyncStorage.setItem('area', area);
+          await AsyncStorage.setItem('district', district);
+          await AsyncStorage.setItem('fname', fname);
+          await AsyncStorage.setItem('lang', lang);
+          
+          navigation.navigate("Home" /*, {
              lang: lang, user: doc.id, fname: fname, district: district
            }*/);
         }

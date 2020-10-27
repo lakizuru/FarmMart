@@ -50,14 +50,6 @@ export default function App() {
         ></Stack.Screen>
         <Stack.Screen name="My Posts" component={MyPosts}></Stack.Screen>
       </Stack.Navigator>
-
-      {/* <Drawer.Navigator>
-        <Drawer.Screen name = 'Home' component = {Home}/>
-        <Drawer.Screen name = 'Search' component = {Search}/>
-        <Drawer.Screen name = 'New Post' component = {NewPost}/>
-        <Drawer.Screen name = 'My Posts' component = {MyPosts}/>
-        <Drawer.Screen name = 'Settings' component = {Settings}/>
-      </Drawer.Navigator> */}
     </NavigationContainer>
   );
 }
