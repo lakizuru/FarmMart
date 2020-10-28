@@ -37,6 +37,19 @@ export default class SignUp extends React.Component {
         alert("Password Mis Matches");
         throw err;
       }
+      if(this.state.firstname ==""){
+        alert("FirstName Required");
+        throw err;
+      }
+      if(this.state.District ==""){
+        alert("District Required");
+        throw err;
+      }
+      if(this.state.Division ==""){
+        alert("Division Required");
+        throw err;
+      }
+
       this.dbRef.doc(this.state.phone_number).set({
         area : this.state.Division,
         district:this.state.District,
