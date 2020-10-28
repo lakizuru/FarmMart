@@ -20,14 +20,22 @@ export default function Home({ route, navigation }) {
   const [fname, setFname] = useState();
   const [district, setDistrict] = useState();
   
+<<<<<<< HEAD
   async function _getData () {
+=======
+  async function getSession () {
+>>>>>>> 425b14179088bf696402ef7a1752267424b4c910
     await AsyncStorage.getItem('lang').then((lang) => setLang(lang));
     await AsyncStorage.getItem('phone').then((phone) => setUser(phone));
     await AsyncStorage.getItem('fname').then((fname) => setFname(fname));
     await AsyncStorage.getItem('district').then((district) => setDistrict(district));
   }
 
+<<<<<<< HEAD
   _getData();
+=======
+  getSession();
+>>>>>>> 425b14179088bf696402ef7a1752267424b4c910
 
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -90,7 +98,7 @@ export default function Home({ route, navigation }) {
           <Text style={styles.barText}>⚙️</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("My Posts", { lang: lang })}
+          onPress={() => navigation.navigate("My Posts", { lang: lang, userlogged: user })}
         >
           <Text style={styles.barText}>🗒️</Text>
         </TouchableOpacity>

@@ -23,6 +23,17 @@ export default class NewPost extends React.Component {
   NewPost = async () => {
     
     try {
+
+
+      if(this.state.Price ==""){
+        alert("Wrong Price Details");
+        throw err;
+      }
+      if(this.state.Quantity ==""){
+        alert("Wrong Quantity Details");
+        throw err;
+      }
+      
       this.dbRef.add({
         area:this.state.Division,
         category:this.state.Category,
@@ -107,9 +118,9 @@ export default class NewPost extends React.Component {
     flexDirection: "column",paddingBottom:10}}>
       <View style={{flexDirection: "row",justifyContent:'space-evenly',padding:10,paddingBottom:10}}>
           
-         <TextInput style={styles.co1} placeholder='Price' placeholderTextColor='white' onChangeText={val => this.onChangeText('Price', val)}/>
+         <TextInput style={styles.co1} placeholder='Price' placeholderTextColor='white' keyboardType={'numeric'} onChangeText={val => this.onChangeText('Price', val)} />
          <TextInput style={styles.co1} placeholder='Unit'placeholderTextColor='white' onChangeText={val => this.onChangeText('Unit', val)} />
-         <TextInput style={styles.co1} placeholder='Quantity'placeholderTextColor='white' onChangeText={val => this.onChangeText('Quantity', val)}/>
+         <TextInput style={styles.co1} placeholder='Quantity'placeholderTextColor='white' onChangeText={val => this.onChangeText('Quantity', val)}keyboardType={'numeric'}/>
          </View>
        </View>
 
