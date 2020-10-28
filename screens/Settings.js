@@ -14,7 +14,25 @@ import DropDownPicker from 'react-native-dropdown-picker';
 export default class Settings extends React.Component {
 
   async getSession (){
-    await AsyncStorage.getItem('phone')
+    const phone = await AsyncStorage.getItem('phone');
+    const user = firebase.firestore().collection("Users").doc(phone);
+
+    user
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        const ans = doc.data();
+        this.setState({
+          firstname : ans.fname,
+          lastname:ans.lname,
+          District: ans.district,
+          Password: ans.password,
+          Division:ans.area
+        })
+        
+        
+      }
+    })
   }
 
   constructor(){
@@ -25,7 +43,8 @@ export default class Settings extends React.Component {
     firstname: '',lastname:'', District: '', phone_number: '',Password:'',ConfirmPassword:'',Division:''
   }
 
-  phoneNo = window.localStorage.getItem("phoneNo");
+  //phoneNo = window.localStorage.getItem("phoneNo");
+  phoneNo = AsyncStorage.getItem('phone');
 
   componentDidMount(){
     console.log(this.phoneNo);

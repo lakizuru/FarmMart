@@ -1,61 +1,38 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { sin, tam, eng } from "../lang";
 
 export default function Lang({ navigation }) {
 
-  const [user, setUser] = useState();
-  
-  // async function getSession(){
-  //   await AsyncStorage.getItem('phone').then((phone) => setUser(phone));
-  // }
+  return (
+    <View style={styles.bg}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Login", { lang: sin })}
+        >
+          <Text style={styles.btnText}>සිංහල</Text>
+        </TouchableOpacity>
 
-  // useEffect(() => {
-  //   getSession();
-  // })
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Login", { lang: tam })}
+        >
+          <Text style={styles.btnText}>தமிழ்</Text>
+        </TouchableOpacity>
 
-  //AsyncStorage.getItem('phone').then((phone) => setUser(phone));
-
-  //if (user == null){
-    return (
-      <View style={styles.bg}>
-        <View style={styles.container}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Login", { lang: sin })}
-          >
-            <Text style={styles.btnText}>සිංහල</Text>
-          </TouchableOpacity>
-  
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Login", { lang: tam })}
-          >
-            <Text style={styles.btnText}>தமிழ்</Text>
-          </TouchableOpacity>
-  
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Login", { lang: eng })}
-          >
-            <Text style={styles.btnText}>English</Text>
-          </TouchableOpacity>
-        </View>
-  
-        <StatusBar style="auto" />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Login", { lang: eng })}
+        >
+          <Text style={styles.btnText}>English</Text>
+        </TouchableOpacity>
       </View>
-    );
-  // }
 
-  //   else {
-  //     return( 
-  //       navigation.navigate('Home')
-  //       );
-  //   }
-
-
-  
+      <StatusBar style="auto" />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -67,9 +44,9 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 15,
-    borderRadius: 50,
+    borderRadius: 25,
     backgroundColor: "#fb5b5a",
-    width: '75%',
+    width: 200,
   },
   btnText: {
     fontSize: 48,
@@ -81,6 +58,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     backgroundColor: "#003f5c",
-    width: '75%'
   },
 });

@@ -6,7 +6,8 @@ import {
   Button,
   TextInput,
   Platform,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -15,12 +16,16 @@ export default class NewPost extends React.Component {
 
   dbRef = firebase.firestore().collection('Posts');
   state = {
-    Category: '', Description: '', Division: '', Title: '',Unit:'',Price:'',Quantity:''
+    Category: '', Description: '', Division: '', Title: '',Unit:'',Price:'',Quantity:'', User: ''
   }
+
+
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
   NewPost = async () => {
+
+    await AsyncStorage.getItem('phone').then((value) => this.setState({ 'User': value }))
     
     try {
 
@@ -41,7 +46,8 @@ export default class NewPost extends React.Component {
         price:this.state.Price,
         qty:this.state.Quantity,
         title:this.state.Title,
-        unit:this.state.Unit
+        unit:this.state.Unit,
+        user:this.state.User
 
 
       });
