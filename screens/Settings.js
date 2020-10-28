@@ -46,9 +46,10 @@ export default class Settings extends React.Component {
   //phoneNo = window.localStorage.getItem("phoneNo");
   phoneNo = AsyncStorage.getItem('phone');
 
-  componentDidMount(){
+  async componentDidMount(){
+    const phoneNo = await AsyncStorage.getItem('phone');
     console.log(this.phoneNo);
-    const user = firebase.firestore().collection("Users").doc(this.phoneNo);
+    const user = firebase.firestore().collection("Users").doc(phoneNo);
 
     user
     .get()
