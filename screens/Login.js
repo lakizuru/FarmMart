@@ -34,7 +34,7 @@ function logIn(phone, pass, navigation, lang) {
         const { area, district, fname, lname, password } = doc.data();
         if (password == pass) {
           setSession(doc.id, area, district, fname, lang);   
-          //window.localStorage.setItem('phoneNo', doc.id);     
+            
           navigation.navigate("Home" /*, {
              lang: lang, user: doc.id, fname: fname, district: district
            }*/);
@@ -114,17 +114,17 @@ export default function Login({ route, navigation }) {
         style={styles.loginBtn}
         onPress={() => logIn(phone, password, navigation, lang)}
       >
-        <Text style={{ fontSize: 24, color: "white" }}>
+        <Text style={{ fontSize: 24, color: "black" }}>
           {lang.login.loginBtn}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Account Recovery")}>
-        <Text style={{ fontSize: 20, color: "white" }}>
+        <Text style={{ fontSize: 20, color: "black" }}>
           {lang.login.forgotPW}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
-        <Text style={{ fontSize: 20, color: "white" }}>
+        <Text style={{ fontSize: 20, color: "black" }}>
           {lang.login.signUpBtn}
         </Text>
       </TouchableOpacity>
@@ -136,7 +136,7 @@ export default function Login({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#003f5c",
+    backgroundColor: "lightgreen",
     alignItems: "center",
     justifyContent: "space-around",
   },
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   greet: {
     fontWeight: "bold",
     fontSize: 50,
-    color: "#fb5b5a",
+    color: "darkgreen",
     marginBottom: 40,
   },
   inputText: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: "80%",
-    backgroundColor: "#465881",
+    backgroundColor: "darkgreen",
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: "75%",
-    backgroundColor: "#fb5b5a",
+    backgroundColor: "green",
     borderRadius: 25,
     height: 50,
     alignItems: "center",
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   langButton: {
     padding: 15,
     borderRadius: 25,
-    backgroundColor: "#fb5b5a",
+    backgroundColor: "green",
     width: 20,
   },
 });

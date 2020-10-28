@@ -129,15 +129,17 @@ export default class Settings extends React.Component {
 
       <View style={styles.container}>
         <View style={{flexDirection:"row"}}>
-          <Text style={{fontSize:35,fontWeight:'bold',paddingTop:20,paddingLeft:15,color:'#fb5b5a'}}>Settings</Text>
+          <Text style={{fontSize:35,fontWeight:'bold',paddingTop:20,paddingLeft:15,color:'green'}}>Settings</Text>
                 <View style={{flex:1 ,justifyContent:'center',alignItems:'center',padding:20,paddingTop:30,marginLeft:130}}>
         
         <Button
           title='Logout'
-          onPress={() =>
+          onPress={ async () =>{
+            await AsyncStorage.clear();
             this.props.navigation.navigate('Login')
           }
-          color='#fb5b5a'
+          }
+          color='green'
         />
       
         </View>
@@ -247,7 +249,7 @@ export default class Settings extends React.Component {
           
           title='Update'
           onPress={() => this.updateUser()}
-          color='#fb5b5a'
+          color='green'
         />
         </View>
       </View>
@@ -259,7 +261,7 @@ const styles = StyleSheet.create({
   input: {
     width: 380,
     height: 55,
-    backgroundColor: "#06283B",
+    backgroundColor: "green",
     margin: 10,
     padding: 8,
     color: "white",
@@ -278,7 +280,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     padding: Platform.OS === "android" ? 35 : 0,
-    backgroundColor: "#383838",
+    backgroundColor: "lightgreen",
 
   },
   tet: {

@@ -11,7 +11,7 @@ import {
   AsyncStorage
 } from "react-native";
 import firebase from "../firebaseDb";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
 //import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Home({ route, navigation }) {
@@ -59,13 +59,15 @@ export default function Home({ route, navigation }) {
   return (
 
     <View style={styles.container}>
-      <Text style={{ fontSize: 36 }}>HOME</Text>
+      
+      <Text style={{ fontSize: 36, color: 'green', fontWeight: 'bold'  }}>HOME</Text>
 
-      <Text style={{ fontSize: 18 }}>
-  Hi, {fname}. Find what you need from {posts.length} posts...
-      </Text>
+<Text style={{ fontSize: 18}}>
+Hi, {fname}. Find what you need from {posts.length} posts...
+</Text>      
 
-      <View style = {{width: '95%'}} >
+      <ScrollView style = {{width: '95%'}}>
+     
       <FlatList
     data={posts}
     renderItem={({ item }) => (
@@ -82,7 +84,7 @@ export default function Home({ route, navigation }) {
     )}
     />
 
-      </View>
+      </ScrollView>
 
       <View style={styles.bar}>
         <TouchableOpacity
@@ -124,7 +126,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 35 : 0,
     alignItems: "center",
   },
-  bar: {
+    bar: {
+    color: 'green',
     flex: 0.1,
     height: "10%",
     alignItems: "center",
@@ -132,7 +135,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    backgroundColor: "dodgerblue",
+    //backgroundColor: "dodgerblue",
+    backfaceVisibility: 'visible',
     flexDirection: "row",
   },
   barText: {

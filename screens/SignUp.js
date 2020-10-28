@@ -78,8 +78,7 @@ export default class SignUp extends React.Component {
     
   
         <View style={{justifyContent:'center',alignItems:'center',padding:20}}>
-        <Text style={{fontSize:35,fontWeight:'bold',color:'#fb5b5a'}}>Create</Text>
-        <Text style={{fontSize:35,fontWeight:'bold',color:'#fb5b5a'}}>Account</Text>
+        <Text style={{fontSize:35,fontWeight:'bold',color:'green'}}>Create Account</Text>
         </View>
         
           <TextInput
@@ -194,7 +193,7 @@ export default class SignUp extends React.Component {
           
           title='Sign Up'
           onPress={this.signUp}
-          color='#fb5b5a'
+          color='green'
         />
         </View>
       </View>
@@ -209,7 +208,7 @@ const styles = StyleSheet.create({
   input: {
     width: 380,
     height: 55,
-    backgroundColor: "#06283B",
+    backgroundColor: "green",
     margin: 10,
     padding: 8,
     color: "white",
@@ -231,7 +230,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     padding: Platform.OS === "android" ? 35 : 0,
-    backgroundColor: "#383838",
+    backgroundColor: "lightgreen",
 
   },
 

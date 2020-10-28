@@ -8,6 +8,7 @@ export default function Lang({ navigation }) {
   return (
     <View style={styles.bg}>
       <View style={styles.container}>
+        <Text style = {{fontSize: 28}}>භාෂාව / மொழி / Language</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("Login", { lang: sin })}
@@ -38,15 +39,16 @@ export default function Lang({ navigation }) {
 const styles = StyleSheet.create({
   bg: {
     flex: 1,
-    backgroundColor: "#003f5c",
+    backgroundColor: "lightgreen",
     alignItems: "center",
     justifyContent: "center",
   },
   button: {
     padding: 15,
-    borderRadius: 25,
-    backgroundColor: "#fb5b5a",
+    borderRadius: 50,
+    backgroundColor: "green",
     width: 200,
+    width: '100%'
   },
   btnText: {
     fontSize: 48,
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     flex: 0.6,
     alignItems: "center",
     justifyContent: "space-around",
-    backgroundColor: "#003f5c",
+    backgroundColor: "lightgreen",
+    width: '75%'
   },
 });

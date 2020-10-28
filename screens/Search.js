@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-export default class SignUp extends React.Component {
+export default class Search extends React.Component {
   state = {
     keyword: "",
     category: "",
@@ -70,7 +70,7 @@ export default class SignUp extends React.Component {
               borderRadius: 30,
               width: 300,
             }}
-            onChangeItem={(item) => console.log(item.label, item.value)}
+            onChangeItem={(item) => this.onChangeText('category', item)}
           />
 
           <Text style={styles.district}>District</Text>
@@ -120,7 +120,7 @@ export default class SignUp extends React.Component {
               borderRadius: 30,
               width: 300,
             }}
-            onChangeItem={(item) => console.log(item.label, item.value)}
+            onChangeItem={(item) => this.onChangeText('district', item.value)}
           />
 
           <View
@@ -133,7 +133,7 @@ export default class SignUp extends React.Component {
             <Button
               title="Search"
               onPress={() =>
-                navigation.navigate("Home", { lang: lang, keyword: keyword })
+                navigation.navigate("Home", { lang: lang, keyword: keyword, district: district })
               }
             />
           </View>
