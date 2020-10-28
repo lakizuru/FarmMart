@@ -44,7 +44,8 @@ export default class NewPost extends React.Component {
         unit:this.state.Unit
 
 
-      })
+      });
+      this.props.navigation.navigate('Home')
       // here place your signup logic
       console.log('Post Added ', success)
     } catch (err) {
@@ -186,7 +187,7 @@ export default class NewPost extends React.Component {
         <Button
           
           title='Publish'
-          onPress={() => {this.NewPost();this.props.navigation.navigate('Home');}}
+          onPress={() => this.NewPost()}
           color="#ff8080"
         />
         </View>

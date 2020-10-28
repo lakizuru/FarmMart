@@ -64,11 +64,23 @@ export default class Settings extends React.Component {
 
   updateUser(){
     try {
-
-      if(this.state.password != this.state.ConfirmPassword){
-        alert("Password Mis Matches");
+      if(this.state.firstname ==""){
+        alert("FirstName Required");
         throw err;
       }
+      if(this.state.District ==""){
+        alert("District Required");
+        throw err;
+      }
+      if(this.state.Division ==""){
+        alert("Division Required");
+        throw err;
+      }
+
+     /* if(this.state.password != this.state.ConfirmPassword){
+        alert("Password Mis Matches");
+        throw err;
+      }*/
 
       const dbRef = firebase.firestore().collection('Users');
       dbRef.doc(this.phoneNo).set({
@@ -78,6 +90,7 @@ export default class Settings extends React.Component {
         lname: this.state.lastname,
         password: this.state.Password
       });
+      this.props.navigation.navigate('Home')
       
       console.log('user successfully updated')
     } catch (err) {
@@ -199,7 +212,7 @@ export default class Settings extends React.Component {
          secureTextEntry={true}
          autoCapitalize="none"
          placeholderTextColor="white"
-         //value = {this.state.Password}
+         value = {this.state.Password}
 
          onChangeText={val => this.onChangeText('ConfirmPassword', val)}
        />
@@ -209,7 +222,7 @@ export default class Settings extends React.Component {
         <Button
           
           title='Update'
-          onPress={() => {this.updateUser();this.props.navigation.navigate('Home');}}
+          onPress={() => this.updateUser()}
           color='#fb5b5a'
         />
         </View>
