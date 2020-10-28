@@ -9,27 +9,31 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
+  AsyncStorage
 } from "react-native";
-import AsyncStorage from '@react-native-community/async-storage'
+//import AsyncStorage from '@react-native-community/async-storage'
 
 import logoImg from "../assets/icon.png";
+
+async function setSession (id, area, district, fname, lang) {
+  await AsyncStorage.setItem('phone', id);
+  await AsyncStorage.setItem('area', area);
+  await AsyncStorage.setItem('district', district);
+  await AsyncStorage.setItem('fname', fname);
+  await AsyncStorage.setItem('lang', lang);
+}
 
 function logIn(phone, pass, navigation, lang) {
   const user = firebase.firestore().collection("Users").doc(phone);
 
   user
     .get()
-    .then(async function (doc) {
+    .then(function (doc) {
       if (doc.exists) {
         const { area, district, fname, lname, password } = doc.data();
         if (password == pass) {
-          await AsyncStorage.setItem('phone', doc.id);
-          await AsyncStorage.setItem('area', area);
-          await AsyncStorage.setItem('district', district);
-          await AsyncStorage.setItem('fname', fname);
-          await AsyncStorage.setItem('lang', lang);
-          
+          setSession(doc.id, area, district, fname, lang);        
           navigation.navigate("Home" /*, {
              lang: lang, user: doc.id, fname: fname, district: district
            }*/);
