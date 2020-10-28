@@ -33,7 +33,8 @@ function logIn(phone, pass, navigation, lang) {
       if (doc.exists) {
         const { area, district, fname, lname, password } = doc.data();
         if (password == pass) {
-          setSession(doc.id, area, district, fname, lang);        
+          setSession(doc.id, area, district, fname, lang);   
+          //window.localStorage.setItem('phoneNo', doc.id);     
           navigation.navigate("Home" /*, {
              lang: lang, user: doc.id, fname: fname, district: district
            }*/);

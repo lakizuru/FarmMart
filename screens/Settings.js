@@ -6,11 +6,16 @@ import {
   Button,
   TextInput,
   StyleSheet,
-  Platform
+  Platform,
+  AsyncStorage
 } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 
 export default class Settings extends React.Component {
+
+  async getSession (){
+    await AsyncStorage.getItem('phone')
+  }
 
   constructor(){
     super();
@@ -22,7 +27,6 @@ export default class Settings extends React.Component {
 
   phoneNo = window.localStorage.getItem("phoneNo");
 
-  
   componentDidMount(){
     console.log(this.phoneNo);
     const user = firebase.firestore().collection("Users").doc(this.phoneNo);
