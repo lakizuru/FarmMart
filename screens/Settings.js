@@ -248,7 +248,9 @@ export default class Settings extends React.Component {
         <Button
           
           title='Update'
-          onPress={() => this.updateUser()}
+          onPress={() => {
+            this.updateUser();
+            this.props.navigation.navigate('Home');}}
           color='green'
         />
         </View>

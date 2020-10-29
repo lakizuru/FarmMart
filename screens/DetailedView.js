@@ -8,114 +8,90 @@ import {
   StyleSheet,
   Text,
   View,
-  Platform,
-  ActivityIndicator,
-  FlatList,
 } from "react-native";
 //import { Item } from "react-native-paper/lib/typescript/src/components/List/List";
 
 export default function DetailedView({ Navigation, route }) {
   const { lang, doc } = route.params;
 
-  const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
+  const [pTitle, setPTitle] = useState();
+  const [pDiscription, setPDiscription] = useState();
+  const [pLName, setPLName] = useState();
+  const [pArea, setPArea] = useState();
+  const [pCategory, setPCategory] = useState();
+  const [pDistrict, setPDistrict] = useState();
+  const [pPrice, setPPrice] = useState();
+  const [pQty, setPQty] = useState();
+  const [pUnit, setPUnit] = useState();
 
-  useEffect (() => {
-    const subscriber = firebase.firestore().collection('Posts').doc(doc).onSnapshot(querySnapshot => {
-      const posts = [];
+  const [uFName, setUFName] = useState();
+  const [uLName, setULName] = useState();
+  const [user, setUser] = useState();
+  const [uArea, setUArea] = useState();
+  const [uDistrict, setUDistrict] = useState();
 
-      querySnapshot.forEach(documentSnapshot => {
-        posts.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id, 
-        });
-      });
+    const Post = firebase.firestore().collection("Posts").doc(doc);
 
-      setPosts(posts);
-      setLoading(false);
+  Post.get().then(function(post){
+    const {area, category, discription, district, price, qty, title, unit, user} = post.data();
 
-    });
+    setPTitle(title);
+    setUser(user);
+    setPDiscription(discription);
+    setPArea(area);
+    setPCategory(category);
+    setPDistrict(district);
+    setPPrice(price);
+    setPQty(qty);
+    setPUnit(unit);
 
-    return () => subscriber();
-  }, []);
+    const User = firebase.firestore().collection("Users").doc(user);
 
-  if (loading){
-    return <ActivityIndicator/>
-  }
-  
-  return (
+    User.get().then(function(publisher){
+      const { area, district, fname, lname, password } = publisher.data();
 
-    <View style={styles.container}>
-      <Text style={{ fontSize: 36 }}>Post Details</Text>
-
-    
-
-      <View style = {{width: '95%'}} >
-      <FlatList
-    data={posts}
-    renderItem={({ item }) => (
-      
-        <View style={styles.rowContainer}>
-        <Text style = {styles.itemTitle}>{item.title}</Text>
-        <Text style={{color:"lightgreen"}}>h</Text>
-        <Text>Description</Text>
-        <Text>{item.description}</Text>
-        <Text style={{color:"lightgreen"}}>f</Text>
-        <Text>Price per {item.unit}: LKR {item.price}</Text>
-        <Text>Qty: {item.qty} {item.unit}</Text>
-        <Text>Phone Number:{item.user}</Text>
-        <Text>Location: {item.area}, {item.district}</Text>
-
-      </View>
-      
-      
-    )}
-    />
-
-      </View>
-    </View>
-  );
-
-  }
-
-  /*return (
-    <View>
-      <Text style={{ fontSize: 36 }}>
-        THIS SCREEN IS STILL UNDER DEVELPMENT
-        Post: {doc}
-      </Text>
-    </View>
-  );
-  */
- const styles = StyleSheet.create({
-  post:{
-    backgroundColor: 'lightgreen',
-    borderStyle: "solid",    
-    borderRadius: 15,
-    justifyContent: "space-around"
-  },
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-    flexDirection: "column",
-    paddingTop: Platform.OS === "android" ? 35 : 0,
-    alignItems: "center",
-  },
-  
-  
-  itemTitle: {
-    fontSize: 20,
-  },
-  rowContainer: {
-    flexDirection: 'column',
-    backgroundColor: 'lightgreen',
-    padding: 15,
-    borderRadius: 15,
-    borderStyle: "solid",
-    borderWidth: 5,
-    borderColor: 'white'
-  },
-
+      setUFName(fname);
+      setULName(lname);
+      setUArea(area);
+      setUDistrict(district);
+  });
 });
+
+  return (
+    <View style={styles.container}>
+      <Text style={{fontSize: 28, fontWeight: 'bold'}}>{pTitle}</Text>
+      <Text style = {{fontSize: 36}}></Text>
+    <View>
+    <Text>{pCategory}</Text>
+     <Text>Price per {pUnit}: {pPrice}</Text>
+     <Text>Qty: {pQty} {pUnit}</Text>
+     <Text>Location: {pArea}, {pDistrict}</Text>
+    </View>
+     
+    <Text style = {{fontSize: 36}}></Text>
+
+     <View>
+     <Text>Seller Information</Text>     
+     <Text>Seller: {uFName} {uLName}</Text>
+     <Text>From: {uArea}, {uDistrict}</Text>
+    <Text>Phone: {user}</Text>
+
+     </View>
+     
+    
+    </View>
+  );
+
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    alignItems: "baseline",
+    justifyContent: "flex-start",
+  },});
+  
+
 
 
