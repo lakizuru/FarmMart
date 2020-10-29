@@ -135,8 +135,8 @@ export default class Settings extends React.Component {
         <Button
           title='Logout'
           onPress={ async () =>{
-            await AsyncStorage.clear();
-            this.props.navigation.navigate('Login')
+            AsyncStorage.clear();
+            this.props.navigation.navigate('Language')
           }
           }
           color='green'

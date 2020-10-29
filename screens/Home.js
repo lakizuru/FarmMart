@@ -12,17 +12,21 @@ import {
 } from "react-native";
 import firebase from "../firebaseDb";
 import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
-//import AsyncStorage from '@react-native-community/async-storage';
+import { sin, tam, eng } from '../lang';
 
 export default function Home({ route, navigation }) {
-  //const { lang, user, fname, district } = 'route.params';
-  const [lang, setLang] = useState();
+  const {lang} = route.params;
+
+  const [langIn, setLangIn] = useState();
+
+  //var lang;
+
   const [user, setUser] = useState();
   const [fname, setFname] = useState();
   const [district, setDistrict] = useState();
   
   async function getSession () {
-    await AsyncStorage.getItem('lang').then((lang) => setLang(lang));
+    await AsyncStorage.getItem('lang').then((lang) => setLangIn(lang));
     await AsyncStorage.getItem('phone').then((phone) => setUser(phone));
     await AsyncStorage.getItem('fname').then((fname) => setFname(fname));
     await AsyncStorage.getItem('district').then((district) => setDistrict(district));
@@ -30,6 +34,16 @@ export default function Home({ route, navigation }) {
 
   getSession();
 
+  // if (langIn == 'sin'){
+  //   lang = sin;
+  // }
+  // else if (langIn == 'tam'){
+  //   lang = tam;
+  // }
+  // else if (langIn == 'eng'){
+  //   lang = eng;
+  // }
+  
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
@@ -60,10 +74,10 @@ export default function Home({ route, navigation }) {
 
     <View style={styles.container}>
       
-      <Text style={{ fontSize: 36, color: 'green', fontWeight: 'bold'  }}>HOME</Text>
+  <Text style={{ fontSize: 36, color: 'green', fontWeight: 'bold'  }}>{lang.home.title}</Text>
 
 <Text style={{ fontSize: 18}}>
-Hi, {fname}. Find what you need from {posts.length} posts...
+{lang.home.subtitle1}{fname}{lang.home.subtitle2}{posts.length}{lang.home.subtitle3}
 </Text>      
 
       <ScrollView style = {{width: '95%'}}>

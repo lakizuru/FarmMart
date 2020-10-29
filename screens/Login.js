@@ -35,9 +35,9 @@ function logIn(phone, pass, navigation, lang) {
         if (password == pass) {
           setSession(doc.id, area, district, fname, lang);   
             
-          navigation.navigate("Home" /*, {
-             lang: lang, user: doc.id, fname: fname, district: district
-           }*/);
+          navigation.navigate("Home", {
+             lang: lang
+           });
         }
         else{
           //Invalid Password
