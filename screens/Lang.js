@@ -45,13 +45,13 @@ export default function Lang({ navigation }) {
     return (
       <View style = {{alignItems: "center", flex: 1, justifyContent: "center",}}>
         <TouchableOpacity
-          style={{padding: 15, borderRadius: 50, backgroundColor: "green", width: '12%', }}
+          style={{padding: 15, borderRadius: 50, backgroundColor: "green", width: '18%', }}
           onPress={() => {
             navigation.navigate("Home", { lang: lang }),
             AsyncStorage.setItem('lang', langIn)
           }}
         >
-          <Text style={styles.btnText}>➡️</Text>
+          <Text style={styles.btnText}>➜</Text>
         </TouchableOpacity>
       </View>
     );
